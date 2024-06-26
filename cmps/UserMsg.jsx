@@ -3,7 +3,7 @@ const { useState, useEffect, useRef } = React
 
 export function UserMsg() {
 
-  const [msg, setMsg] = useState(null)
+  const [msg, setMsg] = useState()
   const timeoutIdRef = useRef()
 
   useEffect(() => {

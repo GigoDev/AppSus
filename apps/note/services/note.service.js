@@ -3,6 +3,8 @@
 import { utilService } from '../../../services/util.service.js'
 import { asyncStorageService } from '../../../services/async-storage.service.js'
 import { storageService } from '../../../services/storage.service.js'
+import { eventBusService, showSuccessMsg, showErrorMsg } from '../../../services/event-bus.service.js'
+
 
 export const noteService = {
     query,
@@ -11,7 +13,11 @@ export const noteService = {
     save,
     getEmptyNote,
     getPinnedNotes,
-    getUnPinnedNotes
+    getUnPinnedNotes,
+    duplicateNote,
+    toggleNotePin,
+    changeNoteColor,
+    getDefaultFilter
 }
 
 const NOTE_KEY = 'notesDB'
@@ -34,7 +40,7 @@ let gNotes = [
         type: 'NoteImg',
         isPinned: false,
         info: {
-            url: 'http://some-img/me',
+            url: 'http://some-img/100/200',
             title: 'Bobi and Me'
         },
         style: {
@@ -64,6 +70,13 @@ function getUnPinnedNotes(notes) {
     return notes.filter(note => !note.isPinned)
 }
 
+function getDefaultFilter() {
+    return {
+        title: "",
+        txt: "",
+        type: ""
+    }
+}
 
 function getEmptyNote() {
     return {
@@ -82,14 +95,60 @@ function getEmptyNote() {
     }
 }
 
-function query() {
+function duplicateNote(noteId) {
+    return asyncStorageService.get(NOTE_KEY, noteId)
+        .then(noteToDuplicate => {
+            if (!noteToDuplicate) {
+                showErrorMsg('Note not found...')
+            }
+            console.log(noteToDuplicate)
+            const newNote = { ...noteToDuplicate }
+            newNote.id = utilService.makeId()
+            newNote.isPinned = false
+            return asyncStorageService.post(NOTE_KEY, newNote)
+        })
+}
+
+function toggleNotePin(noteId) {
+    return asyncStorageService.get(NOTE_KEY, noteId)
+        .then(noteToToggle => {
+            if (!noteToToggle) {
+                showErrorMsg('Note not found')
+            }
+            console.log(noteToToggle)
+            noteToToggle.isPinned = !noteToToggle.isPinned
+            return asyncStorageService.put(NOTE_KEY, noteToToggle)
+        })
+}
+
+function changeNoteColor(noteId, newColor) {
+    return asyncStorageService.get(NOTE_KEY, noteId)
+        .then(noteColor => {
+            if (!noteColor) {
+                showErrorMsg('Note not found')
+            }
+            noteColor.style.backgroundColor = newColor
+            return asyncStorageService.put(NOTE_KEY, noteColor)
+        })
+}
+
+function query(filterBy) {
     return asyncStorageService.query(NOTE_KEY)
-    .then(notes => {
-        console.log(notes)
-        if (!notes || !notes.length) {
+        .then(notes => {
+            console.log(notes)
+            if (!notes || !notes.length) {
                 notes = gNotes
                 asyncStorageService.put(NOTE_KEY, gNotes)
             }
+            // if (!filterBy.text) {
+            //     return notes
+            // }
+            // const regex = new RegExp(filterBy.text, 'i')
+            // return notes.filter(note => {
+            //     regex.test(note.info.title) || 
+            //     regex.test(noto.info.txt) ||
+            //     regex.test(note.type)
+            // })
             return notes
         })
 }
