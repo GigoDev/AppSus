@@ -18,14 +18,9 @@ export const mailService = {
 function query(filterBy = {}) {
     return asyncStorageService.query(MAIL_KEY)
         .then(mails => {
-            console.log('mails:', mails)
-
             if (filterBy.txt) {
                 const regExp = new RegExp(filterBy.txt, 'i')
-                mails = mails.filter(mail => regExp.test(mail.vendor))
-            }
-            if (filterBy.minSpeed) {
-                mails = mails.filter(mail => mail.speed >= filterBy.minSpeed)
+                mails = mails.filter(mail => regExp.test(mail.from))
             }
             return mails
         })
@@ -57,10 +52,8 @@ function getDefaultFilter() {
 function getFilterFromSearchParams(searchParams) {
     // return Object.fromEntries(searchParams)
     const txt = searchParams.get('txt') || ''
-    const minSpeed = searchParams.get('minSpeed') || ''
     return {
-        txt,
-        minSpeed
+        txt
     }
 }
 
@@ -75,7 +68,7 @@ function _createMails() {
 
 function _createMail(subject, body, from, to) {
     return {
-        id: utilService.makeId,
+        id: utilService.makeId(),
         createdAt: Date.now,
         subject,
         body,
@@ -106,48 +99,48 @@ function _setNextPrevMailId(mail) {
 function getDemoEmails() {
     return [
         {
-            id: utilService.makeId,
-            createdAt: Date.now,
+            id: utilService.makeId(),
+            createdAt: Date.now(),
             subject: 'billing information',
             body: 'vol vol vol',
             isRead: false,
-            sentAt: null,
+            sentAt: Date.now() -1000*60*60*24,
             removedAt: null,
             from: `puki@gmail.com`,
             to: 'me@gmail.com'
         },
 
         {
-            id: utilService.makeId,
-            createdAt: Date.now,
+            id: utilService.makeId(),
+            createdAt: Date.now(),
             subject: 'got milk?',
             body: 'dli dli dli',
             isRead: false,
-            sentAt: null,
+            sentAt: Date.now()-1000*60*60*24*2,
             removedAt: null,
             from: 'alex@gamil.com',
             to: 'me@gmail.com'
         },
 
         {
-            id: utilService.makeId,
-            createdAt: Date.now,
+            id: utilService.makeId(),
+            createdAt: Date.now(),
             subject: 'lets talk abou brunu',
             body: 'bla bla bla',
             isRead: false,
-            sentAt: null,
+            sentAt: Date.now()-1000*60*60*24*7,
             removedAt: null,
             from: 'me@gmail.com',
             to: 'alex@gamil.com'
         },
 
         {
-            id: utilService.makeId,
-            createdAt: Date.now,
+            id: utilService.makeId(),
+            createdAt: Date.now(),
             subject: ' to be or not to be',
             body: 'glu glu glu',
             isRead: false,
-            sentAt: null,
+            sentAt: Date.now()-1000*60*60,
             removedAt: null,
             from: 'me@gmail.com',
             to: `puki@gmail.com`

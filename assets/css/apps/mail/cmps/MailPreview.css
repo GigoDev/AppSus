@@ -1,0 +1,22 @@
+.mail-preview {
+    grid-template-columns:  minmax(auto,1fr) 2fr auto;
+    justify-items: start;
+
+    padding: .5rem;
+    outline: 1px black solid;
+
+    text-align: center;
+}
+
+.subject {
+    justify-self: start;
+}
+
+
+.from {
+   
+}
+
+.sent-at {
+   
+}
