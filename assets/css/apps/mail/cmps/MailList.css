@@ -1,1 +1,5 @@
  /* mail list */
+
+ .mail-list li{
+    margin-inline:1rem;
+ }

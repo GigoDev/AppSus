@@ -7,6 +7,17 @@ export const utilService = {
     getDayName,
     getMonthName,
     getRandomNoteColor,
+    debounce
+}
+
+function debounce(func, delay) {
+    let timeoutId
+    return (...args) => {
+        clearTimeout(timeoutId)
+        timeoutId = setTimeout(() => {
+            func(...args)
+        }, delay)
+    }
 }
 
 function makeId(length = 6) {
@@ -62,8 +73,8 @@ function getDayName(date, locale) {
 
 
 function getMonthName(date) {
-    const monthNames = ["January", "February", "March", "April", "May", "June",
-        "July", "August", "September", "October", "November", "December"
+    const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+        "Jul", "Aug", "Sep", "Oct", "Nove", "Dec"
     ]
     return monthNames[date.getMonth()]
 }
