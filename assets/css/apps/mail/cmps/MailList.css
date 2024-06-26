@@ -1,5 +1,23 @@
  /* mail list */
 
- .mail-list li{
-    margin-inline:1rem;
+ .row {
+    margin: -1px 0 0 0;
+    border: rgb(128, 128, 128) 1px solid;
+    padding: .8rem;
+
+    cursor: pointer;
  }
+
+ .mail-list {}
+
+ .row:hover {
+   box-shadow: inset 1px 0 0 #dadce0, inset -1px 0 0 #dadce0, 0 1px 2px 0 rgba(60, 64, 67, .3), 0 1px 3px 1px rgba(60, 64, 67, .15);
+ }
+
+ .row:hover .sent-at{
+   display: none;
+}
+
+.row:hover .delete-btn{
+   display: inline;
+}

@@ -1,5 +1,10 @@
+*{
+    box-sizing: border-box;
+}
+
 body {
     margin: 0;
+    font-family: sans-serif;
 }
 
 h1,
@@ -25,3 +30,4 @@ img {
     width: 100%;
     object-fit: cover;
 }
+

@@ -20,7 +20,7 @@ function query(filterBy = {}) {
         .then(mails => {
             if (filterBy.txt) {
                 const regExp = new RegExp(filterBy.txt, 'i')
-                mails = mails.filter(mail => regExp.test(mail.from))
+                mails = mails.filter(mail => regExp.test(mail.from)|| regExp.test(mail.subject))
             }
             return mails
         })

@@ -9,12 +9,16 @@ const { useEffect, useState } = React
 
 export function MailIndex() {
 
+    const [searchParams, setSearchParams] = useSearchParams()
     const [mails, setMails] = useState(null)
-    const [filterBy, setFilterBy] = useState({ txt: 'al' })
+    // const [filterBy, setFilterBy] = useState({ txt: '' })
+    const [filterBy, setFilterBy] = useState(mailService.getFilterFromSearchParams(searchParams))
+
 
 
     useEffect(() => {
         laodMails()
+        setSearchParams(filterBy)
     }, [filterBy])
 
     function laodMails() {

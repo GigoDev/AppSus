@@ -1,16 +1,22 @@
 import { MailPreview } from "./MailPreview.jsx"
 
-const { Link } = ReactRouterDOM
+const { Link,useNavigate } = ReactRouterDOM
 
 
-export function MailList({mails,onRemoveMail}) {
+export function MailList({ mails, onRemoveMail }) {
+    
+    const navigate = useNavigate()
+
     return (
         <ul className="mail-list flex column">
             {mails.map(mail =>
-                <li className="clean-list grid" key={mail.id}>
-                    <MailPreview mail={mail} />
+                <li className="row clean-list grid"
+                 key={mail.id}
+                 onClick={()=>navigate(`/mail/${mail.id}`)}>
+                    <MailPreview mail={mail}
+                        onRemoveMail={onRemoveMail}
+                    />
                     <section className="list-btns">
-                    <button onClick={() => onRemoveMail(mail.id)}>Remove</button>
                     </section>
                 </li>
             )}

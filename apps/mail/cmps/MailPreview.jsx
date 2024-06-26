@@ -1,6 +1,6 @@
 import { utilService } from "../../../services/util.service.js"
 
-export function MailPreview({ mail }) {
+export function MailPreview({ mail,onRemoveMail }) {
 
     const { subject, sentAt, from } = mail
     const date = new Date(sentAt)
@@ -12,6 +12,7 @@ export function MailPreview({ mail }) {
             <span className="from">{from}</span>
             <span className="subject">{subject}</span>
             <span className="sent-at">{monthName}  {dayNumber}</span>
+            <button className="delete-btn" onClick={() => onRemoveMail(mail.id)}>Remove</button>
         </article>
     )
 }
