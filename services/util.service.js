@@ -6,6 +6,7 @@ export const utilService = {
     padNum,
     getDayName,
     getMonthName,
+    getRandomNoteColor,
 }
 
 function makeId(length = 6) {
@@ -45,6 +46,12 @@ function getRandomColor() {
     for (let i = 0; i < 6; i++) {
         color += letters[Math.floor(Math.random() * 16)]
     }
+    return color
+}
+
+function getRandomNoteColor() {
+    const colors = ['#efeff1', '#e9e3d3', '#f5e2dc', '#d3bedb', '#afccdc','#d3e4ec','#b4ded3', '#e2f6d3', '#fff8b8', '#f29f75', '#faafa9']
+    const color = colors[getRandomIntInclusive(0, colors.length)]
     return color
 }
 
