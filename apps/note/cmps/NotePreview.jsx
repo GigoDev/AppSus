@@ -1,16 +1,19 @@
-import { noteService } from "../services/note.service.js";
 
 import { NoteColor } from "./dynamic-inputs/NoteColor.jsx";
 import { NoteVideo } from "./dynamic-inputs/NoteVideo.jsx";
 
-const { useState, useEffect, Fragment, useRef } = React
+const { useState, useEffect, Fragment } = React
 
-export function NotePreview({ note, onToggleNotePin, onRemoveNote, onDuplicateNote, isPinned, onChangeNoteColor }) {
+export function NotePreview({ note, onSaveNote, onToggleNotePin, onRemoveNote, onDuplicateNote, isPinned, onChangeNoteColor }) {
     const [content, setContent] = useState('NoteTxt')
     const [showColorPicker, setShowColorPicker] = useState(false)
     const [editedNote, setEditedNote] = useState(note)
     const noteCardClass = `${isPinned ? 'active-pin' : ''}`
 
+    useEffect(() => {
+        setEditedNote(note)
+        updateContent(note)
+    }, [note])
 
     function handleChangeTitle(ev) {
         const newTitle = ev.target.innerText
@@ -18,46 +21,118 @@ export function NotePreview({ note, onToggleNotePin, onRemoveNote, onDuplicateNo
             ...prevEditedNote,
             info: { ...prevEditedNote.info, title: newTitle }
         }))
-        saveUpdatedNote()
+        saveUpdatedNote({
+            ...editedNote,
+            info: { ...editedNote.info, title: newTitle }
+        })
     }
 
-    function handleChangeInfo() {
+    function handleChangeInfo(ev) {
+        const newText = ev.target.innerText
         setEditedNote(prevEditedNote => ({
             ...prevEditedNote,
-            info: { txt: target.innerText }
+            info: { txt: newText }
         }))
+        saveUpdatedNote({
+            ...editedNote,
+            info: { ...editedNote.info, txt: newText }
+        })
     }
 
-    function saveUpdatedNote() {
-        noteService.save(editedNote)
+    function handleTodoChange(todoIdx) {
+        const updatedTodos = [...editedNote.info.todos]
+        updatedTodos[todoIdx].checked = !updatedTodos[todoIdx].checked
+        setEditedNote(prevEditedNote => ({
+            ...prevEditedNote,
+            info: { ...prevEditedNote.info, todos: updatedTodos }
+        }));
+        saveUpdatedNote({
+            ...editedNote,
+            info: { ...editedNote.info, todo: updatedTodos }
+        })
     }
 
-    function getVideoFromUrl(value){
+    function saveUpdatedNote(updateNote) {
+        onSaveNote(updateNote)
+    }
+
+    function getVideoFromUrl(value) {
         const videoId = value.match(/(?:youtu\.be\/|youtube\.com\/(?:.*[\?&]v=|.*\/embed\/|.*\/v\/))([\w-]{11})/)
         return videoId ? videoId[1] : null
     }
 
-    function handleChange(){
+    function updateContent(note) {
+        let updatedContent
+        switch (note.type) {
+            case 'NoteTxt':
+                updatedContent =
+                    <div
+                        contentEditable
+                        suppressContentEditableWarning
+                        onInput={handleChangeInfo}>
+                        {note.info.txt}
+                    </div>
+                break
 
+            case 'NoteImg':
+                updatedContent = 
+                <img src={note.info.url} 
+                alt={note.info.title} />
+                break
+
+            case 'NoteVideo':
+                const videoId = getVideoFromUrl(note.info.url)
+                console.log(videoId)
+                updatedContent = videoId ? <NoteVideo videoId={videoId} /> : 'invalid ID'
+                break
+
+            case 'NoteTodos':
+                updatedContent = (
+                    <ul className="clean-list">
+                        {
+                            note.info.todos.map((todo, idx) => (
+                                <li key={idx}>
+                                    <input
+                                        type="checkbox"
+                                        checked={todo.checked}
+                                        onChange={() => handleTodoChange(idx)}
+                                    />
+                                    {todo.txt}
+                                </li>
+                            ))
+                        }
+                    </ul>
+                )
+                break
+
+            default:
+                updatedContent = 'Not supported type'
+                break
+        }
+        setContent(updatedContent)
     }
 
     return (
         <Fragment>
             <div onClick={() => { onToggleNotePin(note.id) }}>
-                <span className={noteCardClass}></span>
+                <span className={noteCardClass}><i className="fa-solid fa-thumbtack"></i></span>
             </div>
 
-            <h1 className="note-card-title">
-                {/* {handleChangeTitle} */}
+            <h1
+                className="note-card-title"
+                contentEditable
+                suppressContentEditableWarning
+                onInput={handleChangeTitle}
+            >
                 {note.info.title}
             </h1>
 
-            <blockquote onInput={ev => handleChangeInfo(ev)}>
-            
+            <blockquote>
+                {content}
             </blockquote>
 
             <section className="actions-btn flex">
-                <span onClick={() => setShowColorPicker(showColor => !showColor)}>color pallete</span>
+                <span onClick={() => setShowColorPicker(showColor => !showColor)}><i className="fa-solid fa-palette"></i></span>
 
                 {showColorPicker &&
                     <NoteColor
@@ -67,12 +142,13 @@ export function NotePreview({ note, onToggleNotePin, onRemoveNote, onDuplicateNo
                     />}
 
                 <div onClick={() => { onRemoveNote(note.id) }}>
-                    <span>Delete</span>
+                    <span><i className="fa-regular fa-trash-can"></i></span>
                 </div>
 
                 <div onClick={() => { onDuplicateNote(note.id) }}>
-                    <span>Copy</span>
+                    <span><i className="fa-regular fa-copy"></i></span>
                 </div>
+
             </section>
         </Fragment>
     )

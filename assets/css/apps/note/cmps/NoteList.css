@@ -1,6 +1,11 @@
  /* note list */
 
- .note-card{
-    display: flex;
-    border: 1px solid black
+ .pinned-notes,
+ .unPinned-notes {
+     margin: 20px auto;
+     columns: 4 200px;
+     column-gap: 2em;
+     row-gap: 2em;
+     margin: 2em;
  }
+

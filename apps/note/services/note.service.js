@@ -32,6 +32,7 @@ let gNotes = [
             backgroundColor: '#fff'
         },
         info: {
+            title: 'Get my stuff together',
             txt: 'Fullstack Me Baby!'
         }
     },
@@ -40,7 +41,7 @@ let gNotes = [
         type: 'NoteImg',
         isPinned: false,
         info: {
-            url: 'http://some-img/100/200',
+            url: 'http://some-img/me',
             title: 'Bobi and Me'
         },
         style: {

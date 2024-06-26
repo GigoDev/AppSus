@@ -39,7 +39,7 @@ export function NoteList({ notes, onRemoveNote, onSaveNote, onDuplicateNote, onT
                     <h1>Notes</h1>
                     <section className="unPinned-notes">
                         {unPinnedNotes.map(note => (
-                            <div className="note-card" key={note.id} >
+                            <div className="note-card" key={note.id}>
                             <NotePreview note={note}
                             onSaveNote={onSaveNote}
                             onToggleNotePin={onToggleNotePin}
