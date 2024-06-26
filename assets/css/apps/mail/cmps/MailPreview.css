@@ -1,12 +1,17 @@
 .mail-preview {
-    grid-template-columns:  minmax(auto,1fr) 2fr auto;
+    grid-template-columns:  minmax(auto,1fr) 2fr minmax(auto,1fr);
     justify-items: start;
 
-    padding: .5rem;
-    outline: 1px black solid;
 
     text-align: center;
 }
+
+.delete-btn{
+    display: none;
+}
+
+
+
 
 .subject {
     justify-self: start;
@@ -18,5 +23,9 @@
 }
 
 .sent-at {
-   
+   justify-self: end;
+}
+
+.delete-btn{
+    justify-self: end;
 }
