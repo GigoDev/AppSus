@@ -1,0 +1,49 @@
+.gmail-logo {
+    height: 30px;
+    width: 40px;
+}
+
+.side-menu-btn {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+
+    height: 32px;
+
+    padding-left: 26px;
+    padding-right: 12px;
+
+    border: none;
+    background-color: transparent;
+    font-size: 1rem;
+
+    cursor: pointer;
+}
+
+.folders-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.side-menu-btn:hover {
+    background-color: #dde3ea;
+
+    border-top-right-radius: 25px;
+    border-bottom-right-radius: 25px;
+}
+
+.compose-btn {
+    display: grid;
+    place-items: center;
+
+    height: 56px;
+
+    margin: 10px;
+
+    background-color: #c2e7ff;
+    border: none;
+    border-radius: 12px;
+
+    cursor: pointer;
+    font-weight: bold;
+}

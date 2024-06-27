@@ -7,7 +7,7 @@
 
 @import './basics/base.css';
 @import './basics/helpers.css';
-/* @import './basics/layout.css'; */
+@import './basics/layout.css';
 
 /* Pages */
 @import './pages/home.css';
@@ -27,5 +27,8 @@
 @import './apps/note/pages/NoteIndex.css';
 
 
+/* Mail cmps */
 @import './apps/mail/cmps/MailList.css';
 @import './apps/mail/cmps/MailPreview.css';
+@import './apps/mail/cmps/SideMenu.css';
+@import './apps/mail/cmps/MailFilterTxt.css';

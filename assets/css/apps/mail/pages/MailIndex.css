@@ -1,8 +1,13 @@
  /* mail index  */
 
- .mail-index{
-    display: grid;
-    /* justify-items: center; */
+.mail-container{
+
+   background-color: #f8fafd;
+}
+
+ .mail-index{    /* justify-items: center; */
 
     font-family: sans-serif;
  }
+
+ 

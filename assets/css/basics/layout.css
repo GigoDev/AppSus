@@ -1,0 +1,29 @@
+.mail-container {
+    grid-template-columns: minmax(150px, auto) 1fr;
+    grid-template-rows: minmax(60px, auto) 1fr;
+}
+
+.gmail-logo {
+    grid-column: 1/1;
+    grid-row: 1/1;
+
+    align-self: center;
+    justify-self: center;
+}
+
+.mail-search {
+    grid-column: 2/2;
+    grid-row: 1/1;
+    
+}
+
+.mail-list {
+    grid-column: 2/2;
+    grid-row: 2/2;
+}
+
+.folders-container{
+    grid-column: 1/1;
+    grid-row: 2/2;
+}
+

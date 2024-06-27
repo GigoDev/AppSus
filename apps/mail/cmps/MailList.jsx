@@ -12,12 +12,10 @@ export function MailList({ mails, onRemoveMail }) {
             {mails.map(mail =>
                 <li className="row clean-list grid"
                  key={mail.id}
-                 onClick={()=>navigate(`/mail/${mail.id}`)}>
+                 onClick={()=>navigate(`/mail/details/${mail.id}`)}>
                     <MailPreview mail={mail}
                         onRemoveMail={onRemoveMail}
                     />
-                    <section className="list-btns">
-                    </section>
                 </li>
             )}
         </ul>

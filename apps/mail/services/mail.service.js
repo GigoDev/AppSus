@@ -3,6 +3,7 @@ import { storageService } from '../../../services/storage.service.js'
 import { utilService } from '../../../services/util.service.js'
 
 const MAIL_KEY = 'mailDB'
+
 _createMails()
 
 export const mailService = {
@@ -20,7 +21,7 @@ function query(filterBy = {}) {
         .then(mails => {
             if (filterBy.txt) {
                 const regExp = new RegExp(filterBy.txt, 'i')
-                mails = mails.filter(mail => regExp.test(mail.from)|| regExp.test(mail.subject))
+                mails = mails.filter(mail => regExp.test(mail.from) || regExp.test(mail.subject))
             }
             return mails
         })
@@ -52,8 +53,10 @@ function getDefaultFilter() {
 function getFilterFromSearchParams(searchParams) {
     // return Object.fromEntries(searchParams)
     const txt = searchParams.get('txt') || ''
+    const folder = searchParams.get('folder') || ''
     return {
-        txt
+        txt,
+        folder
     }
 }
 
@@ -81,7 +84,16 @@ function _createMail(subject, body, from, to) {
 }
 
 function getEmptyMail(subject = '', body = '', from = '', to = '') {
-    return { subject, body, from, to }
+    return {
+        createdAt: Date.now,
+        subject,
+        body,
+        isRead: false,
+        sentAt: null,
+        removedAt: null,
+        from,
+        to
+    }
 }
 
 function _setNextPrevMailId(mail) {
@@ -104,7 +116,7 @@ function getDemoEmails() {
             subject: 'billing information',
             body: 'vol vol vol',
             isRead: false,
-            sentAt: Date.now() -1000*60*60*24,
+            sentAt: Date.now() - 1000 * 60 * 60 * 24,
             removedAt: null,
             from: `puki@gmail.com`,
             to: 'me@gmail.com'
@@ -116,7 +128,7 @@ function getDemoEmails() {
             subject: 'got milk?',
             body: 'dli dli dli',
             isRead: false,
-            sentAt: Date.now()-1000*60*60*24*2,
+            sentAt: Date.now() - 1000 * 60 * 60 * 24 * 2,
             removedAt: null,
             from: 'alex@gamil.com',
             to: 'me@gmail.com'
@@ -128,7 +140,7 @@ function getDemoEmails() {
             subject: 'lets talk abou brunu',
             body: 'bla bla bla',
             isRead: false,
-            sentAt: Date.now()-1000*60*60*24*7,
+            sentAt: Date.now() - 1000 * 60 * 60 * 24 * 7,
             removedAt: null,
             from: 'me@gmail.com',
             to: 'alex@gamil.com'
@@ -140,10 +152,11 @@ function getDemoEmails() {
             subject: ' to be or not to be',
             body: 'glu glu glu',
             isRead: false,
-            sentAt: Date.now()-1000*60*60,
+            sentAt: Date.now() - 1000 * 60 * 60,
             removedAt: null,
             from: 'me@gmail.com',
             to: `puki@gmail.com`
         },
     ]
 }
+

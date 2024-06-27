@@ -2,7 +2,7 @@ import { utilService } from "../../../services/util.service.js"
 
 const { useState, useEffect, useRef } = React
 
-export function MailFilter({ filterBy, onSetFilter }) {
+export function MailFilterTxt({ filterBy, onSetFilter }) {
 
     const [filterByToEdit, setFilterByToEdit] = useState({ ...filterBy })
     const onSetFilterDebounce = useRef(utilService.debounce(onSetFilter, 700))
@@ -26,17 +26,14 @@ export function MailFilter({ filterBy, onSetFilter }) {
     const { txt } = filterByToEdit
 
     return (
-        <section className="mail-filter">
-
-            <form onSubmit={onSubmitFilter}>
-                <label htmlFor="txt"></label>
-                <input value={txt} 
-                onChange={handleChange} 
-                name="txt" type="text" 
+        <form className="mail-search" onSubmit={onSubmitFilter}>
+            <label htmlFor="txt"></label>
+            <input value={txt}
+                onChange={handleChange}
+                name="txt" type="text"
                 id="txt"
                 placeholder="Search mail" />
 
-            </form>
-        </section>
+        </form>
     )
 }

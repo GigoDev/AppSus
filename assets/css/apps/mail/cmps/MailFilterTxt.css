@@ -1,0 +1,16 @@
+.mail-search{
+    display: flex;
+    place-items: center;
+}
+
+.mail-search input{
+    display: block;
+
+    width: 100%;
+    padding: .8rem;
+    background-color: rgb(234, 241, 251);
+
+    border: none;
+    border-radius: 16px;  
+}
+
