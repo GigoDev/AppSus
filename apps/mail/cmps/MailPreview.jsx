@@ -9,6 +9,8 @@ export function MailPreview({ mail, onRemoveMail }) {
 
     return (
         <article className="mail-preview grid">
+
+            <i className="bookmark fa-regular fa-star"></i>
             <span className="from">{from}</span>
             <span className="subject">{subject}</span>
             <span className="sent-at">{monthName}  {dayNumber}</span>
@@ -16,3 +18,4 @@ export function MailPreview({ mail, onRemoveMail }) {
         </article>
     )
 }
+

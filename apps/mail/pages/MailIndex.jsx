@@ -52,7 +52,6 @@ export function MailIndex() {
 
     function onSetFilter(filterBy) {
         setFilterBy(prevFilter => ({ ...prevFilter, ...filterBy }))
-        // setFilterBy({ ...filterBy })
     }
 
     if (!mails) return <div>Loading...</div>

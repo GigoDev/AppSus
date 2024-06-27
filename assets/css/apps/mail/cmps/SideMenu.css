@@ -33,12 +33,16 @@
 }
 
 .compose-btn {
-    display: grid;
-    place-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    
 
     height: 56px;
 
-    margin: 10px;
+    margin: 20px;
+    margin-top: 0;
 
     background-color: #c2e7ff;
     border: none;
@@ -46,4 +50,10 @@
 
     cursor: pointer;
     font-weight: bold;
+
+    transition: .2s;
+}
+
+.compose-btn:hover{
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }

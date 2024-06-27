@@ -1,7 +1,7 @@
 /* Setup */
 
 @import './setup/variables.css';
-/* @import './setup/fonts.css'; */
+@import './setup/fonts.css';
 
 /* Basics */
 
@@ -14,8 +14,10 @@
 
 
 
+/* Mail pages */
 
 @import './apps/mail/pages/MailIndex.css';
+@import './apps/mail/pages/MailCompose.css';
 
 /* Cmps */
 

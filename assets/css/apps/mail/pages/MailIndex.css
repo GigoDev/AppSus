@@ -1,13 +1,9 @@
  /* mail index  */
 
-.mail-container{
+ .mail-container {
+    height: 92vh;
 
-   background-color: #f8fafd;
-}
+    background-color: #f8fafd;
 
- .mail-index{    /* justify-items: center; */
-
-    font-family: sans-serif;
+    font-family: Roboto;
  }
-
- 

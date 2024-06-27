@@ -1,5 +1,5 @@
 .mail-container {
-    grid-template-columns: minmax(150px, auto) 1fr;
+    grid-template-columns: minmax(200px, auto) 1fr 15px;
     grid-template-rows: minmax(60px, auto) 1fr;
 }
 
