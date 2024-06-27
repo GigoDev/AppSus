@@ -228,7 +228,7 @@ function changeNoteColor(noteId, newColor) {
 function query(filterBy) {
     return asyncStorageService.query(NOTE_KEY)
         .then(notes => {
-            console.log(notes)
+            // console.log(notes)
             if (!notes || !notes.length) {
                 notes = gNotes
                 asyncStorageService.put(NOTE_KEY, gNotes)

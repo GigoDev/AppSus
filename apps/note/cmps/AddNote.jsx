@@ -71,11 +71,12 @@ export function AddNote({ onSaveNote }) {
         ev.preventDefault()
         if (!cmpType) return
         note.type = cmpType
+        console.log(note)
         onSaveNote(note)
             .then(() => setNote(noteService.getEmptyNote()))
             .catch(err => console.error('Error adding note:', err))
     }
-    console.log(note)
+    // console.log(note)
 
     return (
         <form className="main-input-container" onSubmit={onAddNote}>

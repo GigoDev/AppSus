@@ -3,7 +3,7 @@ import { NotePreview } from "./NotePreview.jsx"
 
 const { useState, useEffect, Fragment } = React
 
-export function NoteList({ notes, onRemoveNote, onSaveNote, onDuplicateNote, onToggleNotePin, onChangeNoteColor }) {
+export function NoteList({ notes, onEditNote, onRemoveNote, onSaveNote, onDuplicateNote, onToggleNotePin, onChangeNoteColor }) {
     const [pinnedNotes, setPinnedNotes] = useState([])
     const [unPinnedNotes, setUnPinnedNotes] = useState([])
 
@@ -21,12 +21,13 @@ export function NoteList({ notes, onRemoveNote, onSaveNote, onDuplicateNote, onT
                         {pinnedNotes.map(note => (
                             <div className="note-card" key={note.id} style={{ backgroundColor: note.style.backgroundColor }}>
                                 <NotePreview note={note}
-                                onSaveNote={onSaveNote}
-                                onToggleNotePin={onToggleNotePin}
-                                onRemoveNote={onRemoveNote}
-                                onDuplicateNote={onDuplicateNote}
-                                isPinned={note.isPinned}
-                                onChangeNoteColor={onChangeNoteColor}
+                                    onEditNote={onEditNote}
+                                    onSaveNote={onSaveNote}
+                                    onToggleNotePin={onToggleNotePin}
+                                    onRemoveNote={onRemoveNote}
+                                    onDuplicateNote={onDuplicateNote}
+                                    isPinned={note.isPinned}
+                                    onChangeNoteColor={onChangeNoteColor}
                                 />
                             </div>
                         ))}
@@ -40,15 +41,16 @@ export function NoteList({ notes, onRemoveNote, onSaveNote, onDuplicateNote, onT
                     <section className="unPinned-notes">
                         {unPinnedNotes.map(note => (
                             <div className="note-card" key={note.id} style={{ backgroundColor: note.style.backgroundColor }}>
-                            <NotePreview note={note}
-                            onSaveNote={onSaveNote}
-                            onToggleNotePin={onToggleNotePin}
-                            onRemoveNote={onRemoveNote}
-                            onDuplicateNote={onDuplicateNote}
-                            isPinned={note.isPinned}
-                            onChangeNoteColor={onChangeNoteColor}
-                            />
-                        </div>
+                                <NotePreview note={note}
+                                    onEditNote={onEditNote}
+                                    onSaveNote={onSaveNote}
+                                    onToggleNotePin={onToggleNotePin}
+                                    onRemoveNote={onRemoveNote}
+                                    onDuplicateNote={onDuplicateNote}
+                                    isPinned={note.isPinned}
+                                    onChangeNoteColor={onChangeNoteColor}
+                                />
+                            </div>
                         ))}
                     </section>
                 </Fragment>

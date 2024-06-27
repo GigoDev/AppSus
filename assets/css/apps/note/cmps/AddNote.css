@@ -19,6 +19,10 @@
 .note-input-container {
     display: flex;
     background-color: rgb(255, 255, 255);
+    justify-content: space-around;
+    padding: 20px;
+    border-radius: 20px;
+    
 }
 
 .main-input-container button {
@@ -44,23 +48,9 @@
     border-radius: 20px;
 }
 
-.note-input-container {
-    border-radius: 20px;
-}
-
-.note-input-container {
-    display: flex;
-    justify-content: space-around;
-    padding: 20px;
-}
-
 .note-input-container label {
     margin: 0 10px;
     cursor: pointer;
-}
-
-.input-with-icon {
-    position: relative;
 }
 
 .google-keep-input {

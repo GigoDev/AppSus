@@ -1,61 +1,51 @@
 
+import { noteService } from "../services/note.service.js";
 import { NoteColor } from "./dynamic-inputs/NoteColor.jsx";
 import { NoteVideo } from "./dynamic-inputs/NoteVideo.jsx";
 
 const { useState, useEffect, Fragment } = React
 
-export function NotePreview({ note, onSaveNote, onToggleNotePin, onRemoveNote, onDuplicateNote, isPinned, onChangeNoteColor }) {
+export function NotePreview({ note, onEditNote, onToggleNotePin, onRemoveNote, onDuplicateNote, isPinned, onChangeNoteColor }) {
     const [content, setContent] = useState('NoteTxt')
     const [showColorPicker, setShowColorPicker] = useState(false)
-    const [editedNote, setEditedNote] = useState(note)
-
 
     useEffect(() => {
-        setEditedNote(note)
         updateContent(note)
     }, [note])
 
     function handleChangeTitle(ev) {
         const newTitle = ev.target.innerText
-        setEditedNote(prevEditedNote => ({
+        const updatedTitle = onEditNote(prevEditedNote => ({
             ...prevEditedNote,
             info: { ...prevEditedNote.info, title: newTitle }
         }))
-        saveUpdatedNote({
-            ...editedNote,
-            info: { ...editedNote.info, title: newTitle }
-        })
+        saveUpdatedNote(updatedTitle)
     }
 
     function handleChangeInfo(ev) {
         const newText = ev.target.innerText
-        setEditedNote(prevEditedNote => ({
+        const updatedInfo = onEditNote(prevEditedNote => ({
             ...prevEditedNote,
             info: { txt: newText }
         }))
-        saveUpdatedNote({
-            ...editedNote,
-            info: { ...editedNote.info, txt: newText }
-        })
+        saveUpdatedNote(updatedInfo)
     }
 
-    function handleTodoChange({target}) {
-        console.log(target)
-        const isChecked = target.checked
-        const updatedTodos = [...editedNote.info.todos]
-        updatedTodos[isChecked] = !updatedTodos[isChecked]
-        setEditedNote(prevEditedNote => ({
-            ...prevEditedNote,
-            info: { ...prevEditedNote.info, todos: updatedTodos }
-        }))
-        saveUpdatedNote({
-            ...editedNote,
-            info: { ...editedNote.info, todo: updatedTodos }
+    function handleChangeTodos({ target }, todoIdx) {
+        const value = target.checked
+        console.log('value: ', value)
+        const updatedTodos = note.info.todos.map((todo, idx) => {
+            return idx === todoIdx ? { ...todo, doneAt: value ? Date.now() : null } : todo
         })
+        console.log('updatedTodos: ', updatedTodos)
+        const updatedInfo = { ...note.info, todos: updatedTodos }
+        const updatedNote = { ...note, info: updatedInfo }
+        onEditNote(updatedNote)
+        saveUpdatedNote(updatedNote)
     }
 
-    function saveUpdatedNote(updateNote) {
-        onSaveNote(updateNote)
+    function saveUpdatedNote(updatedNote) {
+        noteService.save(updatedNote)
     }
 
     function getVideoFromUrl(value) {
@@ -84,7 +74,7 @@ export function NotePreview({ note, onSaveNote, onToggleNotePin, onRemoveNote, o
 
             case 'NoteVideo':
                 const videoId = getVideoFromUrl(note.info.url)
-                console.log('videoId',videoId)
+                // console.log('videoId',videoId)
                 updatedContent = videoId ? <NoteVideo videoId={videoId} /> : 'invalid ID'
                 break
 
@@ -93,11 +83,13 @@ export function NotePreview({ note, onSaveNote, onToggleNotePin, onRemoveNote, o
                     <ul className="clean-list">
                         {
                             note.info.todos.map((todo, idx) => (
+
                                 <li key={idx}>
                                     <input
+                                        name="todos"
                                         type="checkbox"
-                                        checked={todo.checked}
-                                        onChange={(event) => handleTodoChange(event)}
+                                        checked={Boolean(todo.doneAt)}
+                                        onChange={(ev) => handleChangeTodos(ev, idx)}
                                     />
                                     {todo.txt}
                                 </li>
@@ -128,7 +120,7 @@ export function NotePreview({ note, onSaveNote, onToggleNotePin, onRemoveNote, o
             >
                 {note.info.title}
             </h1>
-            
+
             <blockquote>
                 {content}
             </blockquote>

@@ -24,44 +24,52 @@ export function NoteIndex() {
     //     setFilterBy(prevFilter => ({ ...prevFilter, ...updateFields }))
     // }
 
+    function onEditNote(updatedNote) {
+      
+        setNotes(prevNotes => prevNotes.map(note => {
+            return note.id === updatedNote.id ? updatedNote : note
+        }))
+    }
+
     function onSaveNote(note) {
-        console.log(note)
-        noteService.save(note)
+        // console.log(note)
+        return noteService.save(note)
             .then(loadNotes)
     }
 
     function onRemoveNote(noteId) {
-        console.log(noteId)
+        // console.log(noteId)
         noteService.remove(noteId)
             .then(loadNotes)
     }
 
     function onDuplicateNote(noteId) {
-        console.log(noteId)
+        // console.log(noteId)
         noteService.duplicateNote(noteId)
             .then(loadNotes)
     }
 
     function onToggleNotePin(noteId) {
-        console.log(noteId)
+        // console.log(noteId)
         noteService.toggleNotePin(noteId)
             .then(loadNotes)
     }
 
     function onChangeNoteColor(noteId, newColor) {
-        console.log(noteId)
+        // console.log(noteId)
         noteService.changeNoteColor(noteId, newColor)
             .then(loadNotes)
     }
 
     if (!notes) return <div>Loading...</div>
-    console.log(notes)
+    // console.log(notes)
     return (
         <section className="note-main-container">
             {/* <NoteHeader onSetFilterBy={onSetFilterBy} filterBy={{ filterBy }} /> */}
-            <AddNote onSaveNote={onSaveNote}/>
+            <AddNote onSaveNote={onSaveNote} />
             <NoteList
                 notes={notes}
+                onEditNote={onEditNote}
                 onSaveNote={onSaveNote}
                 onRemoveNote={onRemoveNote}
                 onDuplicateNote={onDuplicateNote}
