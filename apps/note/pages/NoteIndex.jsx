@@ -1,4 +1,5 @@
 
+import { AddNote } from '../cmps/AddNote.jsx'
 import { NoteHeader } from '../cmps/NoteHeader.jsx'
 import { NoteList } from '../cmps/NoteList.jsx'
 import { noteService } from '../services/note.service.js'
@@ -58,6 +59,7 @@ export function NoteIndex() {
     return (
         <section className="note-main-container">
             {/* <NoteHeader onSetFilterBy={onSetFilterBy} filterBy={{ filterBy }} /> */}
+            <AddNote onSaveNote={onSaveNote}/>
             <NoteList
                 notes={notes}
                 onSaveNote={onSaveNote}

@@ -3,9 +3,12 @@
  .pinned-notes,
  .unPinned-notes {
      margin: 20px auto;
-     columns: 4 200px;
-     column-gap: 2em;
-     row-gap: 2em;
-     margin: 2em;
+     columns: 4 400px;
+     column-gap: 5em;
+     row-gap: 5em;
+     margin: 1.5em;
  }
 
+ .note-list-container{
+    padding: 10px;
+ }

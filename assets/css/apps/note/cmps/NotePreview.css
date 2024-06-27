@@ -10,8 +10,8 @@
     flex-direction: column;
     break-inside: avoid;
     margin: auto;
-    min-width: 140px;
-    min-height: 140px;
+    min-width: 100px;
+    min-height: 100px;
     margin-bottom: 15px;
     padding: 20px;
     line-height: 1.7rem;
@@ -38,7 +38,7 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     z-index: 1000;
     opacity: 1;
-    transition: opacity 0.3s ease, transform 0.3s ease;
+    transition: transform 0.3s ease;
 }
 
 .color-picker-modal.hidden {
