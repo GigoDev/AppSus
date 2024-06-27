@@ -231,7 +231,7 @@ function query(filterBy) {
             // console.log(notes)
             if (!notes || !notes.length) {
                 notes = gNotes
-                asyncStorageService.put(NOTE_KEY, gNotes)
+                asyncStorageService.post(NOTE_KEY, gNotes)
             }
             // if (!filterBy.text) {
             //     return notes
@@ -263,7 +263,7 @@ function save(note) {
 }
 
 function _createNotes() {
-    let notes = storageService.loadFromStorage()
+    let notes = storageService.loadFromStorage(NOTE_KEY)
     if (!notes || !notes.length) notes = gNotes
     storageService.saveToStorage(NOTE_KEY, notes)
 }
