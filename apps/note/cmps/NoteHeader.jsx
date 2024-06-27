@@ -1,6 +1,6 @@
 
-// const { useState } = React
-// const { Link, Nav } = ReactRouterDOM
+const { useState } = React
+const { Link, Nav } = ReactRouterDOM
 
 export function NoteHeader({ onSetFilterBy }) {
     // const [filterText, setFilterText] = useState('')

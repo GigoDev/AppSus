@@ -1,0 +1,69 @@
+.google-keep-input {
+    background-color: #fff;
+    border: 1px solid #e0e0e0;
+    padding: 10px 15px;
+    font-size: 16px;
+    color: #202124;
+    border: none;
+    box-sizing: border-box;
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.main-input-container {
+    width: 100%;
+    border-radius: 8px;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.note-input-container {
+    display: flex;
+    background-color: rgb(255, 255, 255);
+}
+
+.main-input-container button {
+    border: none;
+    background-color: white;
+    cursor: pointer;
+}
+
+.google-keep-input:focus {
+    border: none;
+}
+
+.google-keep-input::placeholder {
+    color: #909090;
+}
+
+.google-keep-input.textarea {
+    resize: none;
+}
+
+.google-keep-input.top,
+.google-keep-input.bottom {
+    border-radius: 20px;
+}
+
+.note-input-container {
+    border-radius: 20px;
+}
+
+.note-input-container {
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
+}
+
+.note-input-container label {
+    margin: 0 10px;
+    cursor: pointer;
+}
+
+.input-with-icon {
+    position: relative;
+}
+
+.google-keep-input {
+    width: 100%;
+    padding-right: 200px;
+}

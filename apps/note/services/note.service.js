@@ -29,7 +29,7 @@ let gNotes = [
         type: 'NoteTxt',
         isPinned: true,
         style: {
-            backgroundColor: '#fff'
+            backgroundColor: utilService.getRandomNoteColor()
         },
         info: {
             title: 'Get my stuff together',
@@ -41,11 +41,11 @@ let gNotes = [
         type: 'NoteImg',
         isPinned: false,
         info: {
-            url: 'http://some-img/me',
-            title: 'Bobi and Me'
+            url: './assets/img/tomato.jpg',
+            title: 'CASEOH TOMATO'
         },
         style: {
-            backgroundColor: '#00d'
+            backgroundColor: '#F44236'
         }
     },
     {
@@ -58,9 +58,101 @@ let gNotes = [
                 { txt: 'Driving license', doneAt: null },
                 { txt: 'Coding power', doneAt: 187111111 }
             ]
+        },
+        style: {
+            backgroundColor: utilService.getRandomNoteColor()
+        }
+    },
+    {
+        id: utilService.makeId(),
+        type: 'NoteVideo',
+        isPinned: false,
+        info: {
+            title: 'CaseOh',
+            url: 'https://www.youtube.com/watch?v=PqK3_x1JqNM'
+        },
+        style: {
+            backgroundColor: utilService.getRandomNoteColor()
+        }
+    },
+    {
+        id: utilService.makeId(),
+        createdAt: 1112222,
+        type: 'NoteTxt',
+        isPinned: true,
+        style: {
+            backgroundColor: utilService.getRandomNoteColor()
+        },
+        info: {
+            title: 'Get my stuff together',
+            txt: 'Fullstack Me Baby!'
+        }
+    },
+    {
+        id: utilService.makeId(),
+        type: 'NoteImg',
+        isPinned: false,
+        info: {
+            url: './assets/img/wafflehouse.jpg',
+            title: 'Caseoh Waffle house'
+        },
+        style: {
+            backgroundColor: '#00d'
+        }
+    },
+    {
+        id: utilService.makeId(),
+        type: 'NoteTodos',
+        isPinned: false,
+        info: {
+            title: 'Get my stuff together',
+            todos: [
+                { txt: 'Watch Caseoh', doneAt: null },
+                { txt: 'Coding power', doneAt: 187111111 }
+            ]
+        },
+        style: {
+            backgroundColor: utilService.getRandomNoteColor()
+        }
+    },
+    {
+        id: utilService.makeId(),
+        type: 'NoteVideo',
+        isPinned: false,
+        info: {
+            title: 'CaseOh Outlast',
+            url: 'https://www.youtube.com/watch?v=TABBu02jI9s&t=1s'
+        },
+        style: {
+            backgroundColor: utilService.getRandomNoteColor()
+        }
+    },
+    {
+        id: utilService.makeId(),
+        type: 'NoteVideo',
+        isPinned: false,
+        info: {
+            title: 'CaseOh Scrutinized',
+            url: 'https://www.youtube.com/watch?v=3DJ32Hc2EmI'
+        },
+        style: {
+            backgroundColor: utilService.getRandomNoteColor()
+        }
+    },
+    {
+        id: utilService.makeId(),
+        type: 'NoteVideo',
+        isPinned: false,
+        info: {
+            title: 'CaseOh Freddy',
+            url: 'https://www.youtube.com/watch?v=TiuTNfEw7v4'
+        },
+        style: {
+            backgroundColor: utilService.getRandomNoteColor()
         }
     }
 ]
+
 _createNotes()
 
 function getPinnedNotes(notes) {

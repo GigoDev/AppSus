@@ -19,7 +19,7 @@ export function NoteList({ notes, onRemoveNote, onSaveNote, onDuplicateNote, onT
                     <h1>Pinned Notes</h1>
                     <section className="pinned-notes">
                         {pinnedNotes.map(note => (
-                            <div className="note-card" key={note.id}>
+                            <div className="note-card" key={note.id} style={{ backgroundColor: note.style.backgroundColor }}>
                                 <NotePreview note={note}
                                 onSaveNote={onSaveNote}
                                 onToggleNotePin={onToggleNotePin}
@@ -39,7 +39,7 @@ export function NoteList({ notes, onRemoveNote, onSaveNote, onDuplicateNote, onT
                     <h1>Notes</h1>
                     <section className="unPinned-notes">
                         {unPinnedNotes.map(note => (
-                            <div className="note-card" key={note.id}>
+                            <div className="note-card" key={note.id} style={{ backgroundColor: note.style.backgroundColor }}>
                             <NotePreview note={note}
                             onSaveNote={onSaveNote}
                             onToggleNotePin={onToggleNotePin}

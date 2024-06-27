@@ -8,7 +8,7 @@ export function NotePreview({ note, onSaveNote, onToggleNotePin, onRemoveNote, o
     const [content, setContent] = useState('NoteTxt')
     const [showColorPicker, setShowColorPicker] = useState(false)
     const [editedNote, setEditedNote] = useState(note)
-    const noteCardClass = `${isPinned ? 'active-pin' : ''}`
+
 
     useEffect(() => {
         setEditedNote(note)
@@ -39,13 +39,15 @@ export function NotePreview({ note, onSaveNote, onToggleNotePin, onRemoveNote, o
         })
     }
 
-    function handleTodoChange(todoIdx) {
+    function handleTodoChange({target}) {
+        console.log(target)
+        const isChecked = target.checked
         const updatedTodos = [...editedNote.info.todos]
-        updatedTodos[todoIdx].checked = !updatedTodos[todoIdx].checked
+        updatedTodos[isChecked] = !updatedTodos[isChecked]
         setEditedNote(prevEditedNote => ({
             ...prevEditedNote,
             info: { ...prevEditedNote.info, todos: updatedTodos }
-        }));
+        }))
         saveUpdatedNote({
             ...editedNote,
             info: { ...editedNote.info, todo: updatedTodos }
@@ -75,14 +77,14 @@ export function NotePreview({ note, onSaveNote, onToggleNotePin, onRemoveNote, o
                 break
 
             case 'NoteImg':
-                updatedContent = 
-                <img src={note.info.url} 
-                alt={note.info.title} />
+                updatedContent =
+                    <img src={note.info.url}
+                        alt={note.info.title} />
                 break
 
             case 'NoteVideo':
                 const videoId = getVideoFromUrl(note.info.url)
-                console.log(videoId)
+                console.log('videoId',videoId)
                 updatedContent = videoId ? <NoteVideo videoId={videoId} /> : 'invalid ID'
                 break
 
@@ -95,7 +97,7 @@ export function NotePreview({ note, onSaveNote, onToggleNotePin, onRemoveNote, o
                                     <input
                                         type="checkbox"
                                         checked={todo.checked}
-                                        onChange={() => handleTodoChange(idx)}
+                                        onChange={(event) => handleTodoChange(event)}
                                     />
                                     {todo.txt}
                                 </li>
@@ -111,7 +113,7 @@ export function NotePreview({ note, onSaveNote, onToggleNotePin, onRemoveNote, o
         }
         setContent(updatedContent)
     }
-
+    const noteCardClass = `${isPinned ? 'active-pin' : ''}`
     return (
         <Fragment>
             <div onClick={() => { onToggleNotePin(note.id) }}>
@@ -126,7 +128,7 @@ export function NotePreview({ note, onSaveNote, onToggleNotePin, onRemoveNote, o
             >
                 {note.info.title}
             </h1>
-
+            
             <blockquote>
                 {content}
             </blockquote>
