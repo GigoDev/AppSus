@@ -27,12 +27,15 @@ export function MailFilterTxt({ filterBy, onSetFilter }) {
 
     return (
         <form className="mail-search" onSubmit={onSubmitFilter}>
-            <label htmlFor="txt"></label>
-            <input value={txt}
-                onChange={handleChange}
-                name="txt" type="text"
-                id="txt"
-                placeholder="Search mail" />
+            <label className="search-label" htmlFor="txt">
+                <i className="fa-solid fa-magnifying-glass"></i>
+                <input value={txt}
+                    onChange={handleChange}
+                    name="txt" type="text"
+                    id="txt"
+                    placeholder="Search mail" />
+
+            </label>
 
         </form>
     )

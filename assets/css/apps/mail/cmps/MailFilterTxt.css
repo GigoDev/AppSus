@@ -5,12 +5,34 @@
 
 .mail-search input{
     display: block;
+    
 
     width: 100%;
     padding: .8rem;
+    padding-left: 2.5em;
     background-color: rgb(234, 241, 251);
 
     border: none;
     border-radius: 16px;  
+}
+
+.search-label{
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+.search-label i{
+    position: absolute;
+    left: 0.5em;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: #aaa;
+}
+
+.search-label input:focus{
+    background-color: #fff;
+    outline: none;
 }
 

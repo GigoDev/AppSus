@@ -10,7 +10,7 @@ export function SideMenu() {
             <div className="gmail-logo"><img src="assets/img/Gmail_icon.png" /></div>
             <section className="folders-container">
 
-            <Link to="/mail/compose/" className="compose-btn">Compose</Link>
+            <Link to="/mail/compose/" className="compose-btn"><i className="fa-solid fa-pencil"></i>Compose</Link>
 
                 <button className="side-menu-btn" onClick={() => navigate(`/mail/inbox`)}>
                     <i className="fa-solid fa-inbox"></i>

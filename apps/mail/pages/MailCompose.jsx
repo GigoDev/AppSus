@@ -12,7 +12,7 @@ export function MailCompose() {
     // const { mailId } = useParams()
 
     useEffect(() => {
-        setMailToEdit(prevMailToEdit=>({...prevMailToEdit, from: 'me@gmail.com'}))
+        setMailToEdit(prevMailToEdit => ({ ...prevMailToEdit, from: 'me@gmail.com' }))
     }, [])
 
     // function loadMail() {
@@ -43,22 +43,39 @@ export function MailCompose() {
 
     const { to, subject, body } = mailToEdit
     return (
-        <section className="compose-mail flex column">
-            <form onSubmit={onSaveMail}>
-                <label htmlFor="to">To</label>
-                <input onChange={handleChange} value={to} type="text" name="to" id="to" />
 
-                <label htmlFor="subject">Subject</label>
-                <input onChange={handleChange} value={subject} type="text" name="subject" id="subject" />
+        <form className="compose-mail grid"
+            onSubmit={onSaveMail}>
 
-                <label htmlFor="body">Body</label>
-                <input onChange={handleChange} value={body} type="text" name="body" id="body" />
+            <h2>New Message</h2>
+            <input onChange={handleChange}
+                className="to-input"
+                value={to}
+                type="text"
+                name="to"
+                id="to"
+                placeholder="to" />
+
+            <input onChange={handleChange}
+                className="subject-input"
+                value={subject}
+                type="text"
+                name="subject"
+                id="subject"
+                placeholder="subject" />
+
+            <textarea onChange={handleChange}
+                className="body-input"
+                value={body}
+                type="text"
+                name="body"
+                id="body" >
+            </textarea>
+
+            <button className="send-btn">Send</button>
+        </form >
 
 
-                <button>Save</button>
-            </form>
-
-        </section>
     )
 
 }

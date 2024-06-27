@@ -1,0 +1,64 @@
+.compose-mail {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+
+    grid-template-rows: auto auto auto 1fr auto;
+
+    height: 40vw;
+    width: 500px;
+
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+
+    border-top-right-radius: 20px;
+    border-top-left-radius: 20px;
+    
+    overflow: hidden;
+
+    font-family: Roboto;
+}
+
+.compose-mail h2 {
+    font-size: 1rem;
+    padding: 1rem;
+
+    background-color: #a8c7fa;
+}
+
+.send-btn {
+    height: 25px;
+    width: 75px;
+
+    margin: .8rem;
+    background-color: #0B57D0;
+
+    border-radius: 20px;
+    border: none;
+
+    color: white;
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+.to-input,
+.subject-input,
+.body-input {
+    margin-inline: .8rem;
+    padding: .6rem;
+
+    border: none;
+
+    font-size: 1rem;
+}
+
+.to-input,
+.subject-input{
+    border-bottom: 1px solid lightgrey;
+}
+
+.to-input,
+.subject-input,
+.body-input{
+    outline: none;
+}

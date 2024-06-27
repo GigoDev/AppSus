@@ -1,10 +1,12 @@
 .mail-preview {
-    grid-template-columns:  minmax(auto,1fr) 2fr minmax(auto,1fr);
+    grid-template-columns:  auto minmax(auto,1fr) 2fr minmax(auto,1fr);
     justify-items: start;
+    column-gap: .8rem;
 
 
     text-align: center;
 }
+
 
 .delete-btn{
     display: none;
