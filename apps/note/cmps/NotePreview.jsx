@@ -65,7 +65,7 @@ export function NotePreview({ note, onEditNote, onToggleNotePin, onRemoveNote, o
         switch (note.type) {
             case 'NoteTxt':
                 updatedContent =
-                    <input
+                    <textarea
                         contentEditable
                         suppressContentEditableWarning
                         onInput={handleChangeInfo}
