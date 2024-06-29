@@ -1,16 +1,30 @@
-.mail-details{
+.mail-details {
     align-items: center;
     gap: 1rem;
 
+    margin: auto;
+
+    width: 500px;
+    height: 500px;
+
     margin-block-start: 1rem;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 .mail-details h2 {
     font-weight: 100;
 }
 
-.details-navbar{
+.details-navbar {
     align-items: center;
     justify-content: space-between;
     gap: 3rem;
+
+    width: 100%;
+
+    background-color: #a8c7fa;
+}
+
+.details-navbar i {
+    margin-inline: .8rem;
 }
