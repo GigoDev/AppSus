@@ -25,7 +25,7 @@ export function MailDetails() {
     return (
         <section className="mail-details flex column">
             <nav className="details-navbar flex">
-                <Link to="/mail"><i class="fa-solid fa-arrow-left"></i></Link>
+                <Link to="/mail"><i className="fa-solid fa-arrow-left"></i></Link>
                 <section>
                     <Link to={`/mail/details/${mail.prevMailId}`}><i class="fa-solid fa-angle-left"></i></Link>
                     <Link to={`/mail/details/${mail.nextMailId}`}><i class="fa-solid fa-angle-right"></i></Link>

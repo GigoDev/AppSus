@@ -66,7 +66,8 @@ export function MailIndex() {
     }
 
     if (!mails) return <div>Loading...</div>
-    const { folder, txt } = filterBy
+    let { folder, txt } = filterBy
+    folder = folder || 'inbox'
     return (
         <section className="mail-container grid">
             <SideMenu className="side-menu"
