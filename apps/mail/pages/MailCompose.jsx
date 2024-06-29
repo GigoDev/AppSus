@@ -41,7 +41,7 @@ export function MailCompose() {
                 
             <section className="compose-header flex">
                 <h2>New Message</h2>
-                <Link to="/mail"><i class="fa-solid fa-xmark"></i></Link>
+                <Link to="/mail/inbox"><i class="fa-solid fa-xmark"></i></Link>
             </section>
             <input onChange={handleChange}
                 className="to-input"
