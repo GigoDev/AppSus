@@ -20,7 +20,7 @@ export function MailIndex() {
         loadMails()
         setSearchParams(filterBy)
         setFoldersCountMap()
-    }, [filterBy,foldersCountMap.current])
+    }, [filterBy, foldersCountMap.current])
 
     function loadMails() {
         mailService.query(filterBy)
@@ -36,9 +36,11 @@ export function MailIndex() {
         mailService.query()
             .then(mails => {
                 foldersCountMap.current = mails.reduce((acc, mail) => {
-                    if (mail.from !== 'user@appsus.com') acc.inbox = (acc.inbox || 0) + 1
-                    if (mail.sentAt) acc.sent = (acc.sent || 0) + 1
-                    if (mail.isBookmarked) acc.starred = (acc.starred || 0) + 1
+                    if (mail.from !== 'user@appsus.com' && !mail.removedAt) acc.inbox = (acc.inbox || 0) + 1
+                    if (mail.sentAt && !mail.removedAt) acc.sent = (acc.sent || 0) + 1
+                    if (mail.isBookmarked && !mail.removedAt) acc.starred = (acc.starred || 0) + 1
+                    if (mail.removedAt) acc.trash = (acc.trash || 0) + 1
+
                     return acc
                 }, {})
 
@@ -50,12 +52,29 @@ export function MailIndex() {
 
     }
 
-    function onRemoveMail(ev, mailId) {
+    function onRemoveMail(ev, mail) {
         ev.stopPropagation()
-        mailService.remove(mailId)
+
+        if (filterBy.folder !== 'trash') {
+            mail.removedAt = Date.now()
+            mailService.save(mail)
+                .then(()=>loadMails())
+                .catch(err => {
+                    console.log('Problems removing mail:', err)
+                    // TODO:
+                    // showErrorMsg(`Having problems removing mail!`)
+                })
+    
+            // setMails(prevMails =>
+            //     prevMails.map(prevMail => prevMail.id === mail.id ? mail : prevMail)
+            // )
+            return
+        }
+
+        mailService.remove(mail.id)
             .then(() => {
-                setMails(mails =>
-                    mails.filter(mail => mail.id !== mailId)
+                setMails(prevMails =>
+                    prevMails.filter(prevMail => prevMail.id !== mail.id)
                 )
                 // TODO:
                 // showSuccessMsg(`Car (${mailId}) removed successfully!`)

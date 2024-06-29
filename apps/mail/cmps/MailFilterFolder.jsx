@@ -16,8 +16,8 @@ export function MailFilterFolder({ filterBy, onSetFilter, foldersCountMap }) {
     }
 
     const { folder } = filterBy
-    const { inbox, sent, starred } = foldersCountMap.current
-
+    const { inbox, sent, starred,trash } = foldersCountMap.current
+   
     return (
         <React.Fragment>
 
@@ -36,6 +36,8 @@ export function MailFilterFolder({ filterBy, onSetFilter, foldersCountMap }) {
                 onClick={handleChange}>
                 <i className="fa-regular fa-trash-can" ></i>
                 <span>Trash</span>
+                <span className="count">{trash}</span>
+
 
             </button>
 

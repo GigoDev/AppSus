@@ -39,10 +39,10 @@ function _filterTxt(mails, filterBy) {
 function _filterFolder(mails, filterBy) {
     switch (filterBy.folder) {
         case 'inbox':
-            mails = mails.filter(({ from, remvedAt }) => (from !== loggedinUser.email) && !remvedAt)
+            mails = mails.filter(({ from,  removedAt }) => (from !== loggedinUser.email) && !removedAt)
             break;
         case 'sent':
-            mails = mails.filter(({ sentAt, remvedAt }) => (sentAt) && !remvedAt)
+            mails = mails.filter(({ sentAt, removedAt }) => (sentAt) && !removedAt)
             break;
 
         case 'trash':
@@ -50,7 +50,7 @@ function _filterFolder(mails, filterBy) {
             break;
 
         case 'starred':
-            mails = mails.filter(mail => mail.isBookmarked)
+            mails = mails.filter(mail => mail.isBookmarked && !mail.removedAt)
             break;
 
         default:
@@ -188,7 +188,7 @@ function getDemoEmails() {
         } else {
             from = loggedinUser.email
             to = `${names[i]}@gmail.com`
-            sentAt =randomTimestamp()
+            sentAt = randomTimestamp()
         }
 
         const email = {
@@ -199,7 +199,7 @@ function getDemoEmails() {
             isRead: Math.random() < 0.5,
             isBookmarked: Math.random() < 0.2,
             sentAt,
-            removedAt: Math.random() < 0.3 ? randomTimestamp() : null,
+            removedAt: Math.random() < 0.3 ? randomTimestamp(): null,
             from,
             to
         }

@@ -9,7 +9,7 @@ export function MailPreview({ mail, onRemoveMail, onBookmarkMail }) {
 
     const className = isBookmarked ? 'bookmarked' : 'bookmark'
     const isSolidStar = isBookmarked ? 'solid' : 'regular'
-    const readClass = isRead ? 'read' : ''
+    const readClass = !isRead ? 'read' : ''
 
     return (
         <article className={`mail-preview grid ${readClass}`}>
@@ -17,7 +17,7 @@ export function MailPreview({ mail, onRemoveMail, onBookmarkMail }) {
             <span className="from">{from}</span>
             <span className="subject">{subject}</span>
             <span className="sent-at">{monthName}  {dayNumber}</span>
-            <div className="delete-btn"><i className="fa-regular fa-trash-can" onClick={(event) => onRemoveMail(event, mail.id)}></i></div>
+            <div className="delete-btn"><i className="fa-regular fa-trash-can" onClick={(event) => onRemoveMail(event, mail)}></i></div>
         </article>
     )
 }
