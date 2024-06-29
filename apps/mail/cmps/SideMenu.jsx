@@ -2,7 +2,7 @@ import { MailFilterFolder } from "./MailFilterFolder.jsx"
 
 const { Link } = ReactRouterDOM
 
-export function SideMenu({ filterBy, onSetFilter }) {
+export function SideMenu({ filterBy, onSetFilter,foldersCountMap }) {
 
     return (
 
@@ -17,6 +17,7 @@ export function SideMenu({ filterBy, onSetFilter }) {
                 <MailFilterFolder
                     filterBy={filterBy}
                     onSetFilter={onSetFilter}
+                    foldersCountMap={foldersCountMap}
                 />
 
             </section>

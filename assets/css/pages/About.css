@@ -1,0 +1,18 @@
+.team-page {
+    margin: 0 auto;
+    padding: 20px;
+
+    font-family: Arial, sans-serif;
+}
+.team-page h1,.team-page h2 {
+    color: #3498db;
+}
+.team-member {
+    margin-bottom: 20px;
+}
+.team-member h3 {
+    margin: 10px 0 5px 0;
+}
+.team-member p {
+    margin: 5px 0;
+}

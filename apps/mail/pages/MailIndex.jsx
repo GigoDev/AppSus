@@ -1,11 +1,11 @@
-const { Link, useSearchParams,Outlet } = ReactRouterDOM
+const { Link, useSearchParams, Outlet } = ReactRouterDOM
 import { MailFilterTxt } from "../cmps/MailFilterTxt.jsx"
 import { MailList } from "../cmps/MailList.jsx"
 import { SideMenu } from "../cmps/SideMenu.jsx"
 import { mailService } from "../services/mail.service.js"
 
 
-const { useEffect, useState } = React
+const { useEffect, useState, useRef } = React
 
 
 export function MailIndex() {
@@ -14,10 +14,13 @@ export function MailIndex() {
     const [mails, setMails] = useState(null)
     const [filterBy, setFilterBy] = useState(mailService.getFilterFromSearchParams(searchParams))
 
+    const foldersCountMap = useRef(null)
+
     useEffect(() => {
         loadMails()
         setSearchParams(filterBy)
-    }, [filterBy])
+        setFoldersCountMap()
+    }, [filterBy,foldersCountMap.current])
 
     function loadMails() {
         mailService.query(filterBy)
@@ -27,6 +30,24 @@ export function MailIndex() {
             .catch(err => {
                 console.log('err:', err)
             })
+    }
+
+    function setFoldersCountMap() {
+        mailService.query()
+            .then(mails => {
+                foldersCountMap.current = mails.reduce((acc, mail) => {
+                    if (mail.from !== 'user@appsus.com') acc.inbox = (acc.inbox || 0) + 1
+                    if (mail.sentAt) acc.sent = (acc.sent || 0) + 1
+                    if (mail.isBookmarked) acc.starred = (acc.starred || 0) + 1
+                    return acc
+                }, {})
+
+            })
+            .catch(err => {
+                console.log('err:', err)
+            })
+
+
     }
 
     function onRemoveMail(ev, mailId) {
@@ -54,9 +75,9 @@ export function MailIndex() {
                 mail.isBookmarked = !mail.isBookmarked
                 return mailService.save(mail)
             })
-            .then((mail) => setMails(prevMails=>
-                                        prevMails.map(prevMail=> 
-                                            prevMail.id===mailId? mail: prevMail )
+            .then((mail) => setMails(prevMails =>
+                prevMails.map(prevMail =>
+                    prevMail.id === mailId ? mail : prevMail)
             ))
             .catch(err => console.log('err:', err))
     }
@@ -68,11 +89,14 @@ export function MailIndex() {
     if (!mails) return <div>Loading...</div>
     let { folder, txt } = filterBy
     folder = folder || 'inbox'
+
     return (
         <section className="mail-container grid">
             <SideMenu className="side-menu"
                 filterBy={{ folder }}
-                onSetFilter={onSetFilter} />
+                onSetFilter={onSetFilter}
+                foldersCountMap={foldersCountMap}
+            />
 
             <MailFilterTxt className="search"
                 filterBy={{ txt }}
@@ -83,9 +107,9 @@ export function MailIndex() {
                 onRemoveMail={onRemoveMail}
                 onBookmarkMail={onBookmarkMail}
             />
-            <Outlet/>
+            <Outlet />
         </section>
-        
+
     )
 }
 

@@ -30,7 +30,7 @@ export function MailCompose() {
         const field = target.name
         let value = target.value
 
-        setMailToEdit(prevMail => ({ ...prevMail, [field]: value }))
+        setMailToEdit(prevMail => ({ ...prevMail, [field]: value, sentAt: Date.now() }))
     }
 
     const { to, subject, body } = mailToEdit
@@ -38,10 +38,10 @@ export function MailCompose() {
     return (
         <form className="compose-mail grid"
             onSubmit={onSaveMail}>
-                
+
             <section className="compose-header flex">
                 <h2>New Message</h2>
-                <Link to="/mail/inbox"><i class="fa-solid fa-xmark"></i></Link>
+                <Link to="/mail/inbox"><i className="fa-solid fa-xmark"></i></Link>
             </section>
             <input onChange={handleChange}
                 className="to-input"

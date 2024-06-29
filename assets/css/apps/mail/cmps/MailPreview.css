@@ -3,10 +3,8 @@
     justify-items: start;
     column-gap: .8rem;
 
-
     text-align: center;
 }
-
 
 .delete-btn{
     display: none;
@@ -27,4 +25,10 @@
 
 .delete-btn{
     justify-self: end;
+}
+
+.row:has(>.read){
+    background-color: #F2F6Fc;
+
+    font-weight: bold;
 }

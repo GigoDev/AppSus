@@ -32,3 +32,7 @@
     border-bottom-right-radius: 25px;
 
 }
+
+.count{
+    margin-inline-start: auto;
+}

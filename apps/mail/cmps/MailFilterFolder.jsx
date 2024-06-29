@@ -2,8 +2,7 @@
 const { useState, useEffect } = React
 
 
-export function MailFilterFolder({ filterBy, onSetFilter }) {
-
+export function MailFilterFolder({ filterBy, onSetFilter, foldersCountMap }) {
 
     const [filterByToEdit, setFilterByToEdit] = useState({ ...filterBy })
 
@@ -16,7 +15,8 @@ export function MailFilterFolder({ filterBy, onSetFilter }) {
         setFilterByToEdit(prevFilter => ({ ...prevFilter, folder: value }))
     }
 
-    const {folder} = filterBy
+    const { folder } = filterBy
+    const { inbox, sent, starred } = foldersCountMap.current
 
     return (
         <React.Fragment>
@@ -27,6 +27,7 @@ export function MailFilterFolder({ filterBy, onSetFilter }) {
                 onClick={handleChange}>
                 <i className="fa-solid fa-inbox"></i>
                 <span>Inbox</span>
+                <span className="count">{inbox}</span>
             </button>
 
             <button
@@ -35,6 +36,7 @@ export function MailFilterFolder({ filterBy, onSetFilter }) {
                 onClick={handleChange}>
                 <i className="fa-regular fa-trash-can" ></i>
                 <span>Trash</span>
+
             </button>
 
             <button
@@ -43,6 +45,8 @@ export function MailFilterFolder({ filterBy, onSetFilter }) {
                 onClick={handleChange}>
                 <i className="fa-regular fa-paper-plane"></i>
                 <span>Sent</span>
+                <span className="count">{sent}</span>
+
             </button>
 
             <button
@@ -51,6 +55,8 @@ export function MailFilterFolder({ filterBy, onSetFilter }) {
                 onClick={handleChange}>
                 <i className="fa-regular fa-star"></i>
                 <span>Starred</span>
+                <span className="count">{starred}</span>
+
             </button>
 
         </React.Fragment>

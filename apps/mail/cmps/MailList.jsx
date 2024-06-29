@@ -1,11 +1,19 @@
+import { mailService } from "../services/mail.service.js"
 import { MailPreview } from "./MailPreview.jsx"
 
 const { Link, useNavigate } = ReactRouterDOM
 
 
-export function MailList({ mails, onRemoveMail,onBookmarkMail }) {
+export function MailList({ mails, onRemoveMail, onBookmarkMail }) {
 
     const navigate = useNavigate()
+
+    function readMail(ev, mail) {
+        mail.isRead = true
+        mailService.save(mail)
+            .then((mail) => navigate(`/mail/details/${mail.id}`))
+            .catch(err => console.log('err:', err))
+    }
 
     return (
         <ul className="mail-list flex column">
@@ -16,7 +24,7 @@ export function MailList({ mails, onRemoveMail,onBookmarkMail }) {
             {mails.map(mail =>
                 <li className="row clean-list grid"
                     key={mail.id}
-                    onClick={() => navigate(`/mail/details/${mail.id}`)}>
+                    onClick={(event) => readMail(event, mail)} >
                     <MailPreview mail={mail}
                         onRemoveMail={onRemoveMail}
                         onBookmarkMail={onBookmarkMail}
