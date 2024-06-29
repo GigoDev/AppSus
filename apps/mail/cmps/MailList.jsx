@@ -3,7 +3,7 @@ import { MailPreview } from "./MailPreview.jsx"
 const { Link, useNavigate } = ReactRouterDOM
 
 
-export function MailList({ mails, onRemoveMail }) {
+export function MailList({ mails, onRemoveMail,onBookmarkMail }) {
 
     const navigate = useNavigate()
 
@@ -19,6 +19,7 @@ export function MailList({ mails, onRemoveMail }) {
                     onClick={() => navigate(`/mail/details/${mail.id}`)}>
                     <MailPreview mail={mail}
                         onRemoveMail={onRemoveMail}
+                        onBookmarkMail={onBookmarkMail}
                     />
                 </li>
             )}

@@ -16,7 +16,7 @@ export function Home() {
                 <Link to="/mail" class="home-card">
                     <img src="../assets/img/Gmail_icon.png" />
                     <h4><b>Gmail</b></h4>
-                    <p>Ignoring your creditors made easier </p>
+                    <p>Ignoring your credit bills made easy </p>
                 </Link>
             </div>
         </section>

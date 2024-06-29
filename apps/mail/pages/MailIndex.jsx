@@ -1,31 +1,28 @@
 const { Link, useSearchParams } = ReactRouterDOM
-import { MailFilterTxt, MailSearch } from "../cmps/MailFilterTxt.jsx"
+import { MailFilterTxt } from "../cmps/MailFilterTxt.jsx"
 import { MailList } from "../cmps/MailList.jsx"
 import { SideMenu } from "../cmps/SideMenu.jsx"
 import { mailService } from "../services/mail.service.js"
 
 
 const { useEffect, useState } = React
-const { useParams } = ReactRouterDOM
 
 
 export function MailIndex() {
 
     const [searchParams, setSearchParams] = useSearchParams()
     const [mails, setMails] = useState(null)
-    // const [filterBy, setFilterBy] = useState({ txt: '' })
     const [filterBy, setFilterBy] = useState(mailService.getFilterFromSearchParams(searchParams))
 
-
-
     useEffect(() => {
-        laodMails()
+        loadMails()
         setSearchParams(filterBy)
     }, [filterBy])
 
-    function laodMails() {
+    function loadMails() {
         mailService.query(filterBy)
             .then(mails => {
+                console.log('hi')
                 setMails(mails)
             })
             .catch(err => {
@@ -33,8 +30,8 @@ export function MailIndex() {
             })
     }
 
-    function onRemoveMail(event, mailId) {
-        event.stopPropagation()
+    function onRemoveMail(ev, mailId) {
+        ev.stopPropagation()
         mailService.remove(mailId)
             .then(() => {
                 setMails(mails =>
@@ -50,25 +47,41 @@ export function MailIndex() {
             })
     }
 
+    function onBookmarkMail(ev, mailId) {
+        ev.stopPropagation()
+
+        mailService.get(mailId)
+            .then(mail => {
+                mail.isBookmarked = true
+                return mailService.save(mail)
+            })
+            .then((mail) => setMails(prevMails=>
+                                    prevMails.map(prevMail=> 
+                                        prevMail.id===mailId? mail: prevMail )
+            ))
+            .catch(err => console.log('err:', err))
+    }
+
     function onSetFilter(filterBy) {
         setFilterBy(prevFilter => ({ ...prevFilter, ...filterBy }))
     }
 
     if (!mails) return <div>Loading...</div>
-    const { sent, txt } = filterBy
+    const { folder, txt } = filterBy
     return (
         <section className="mail-container grid">
-            <SideMenu />
-            {/* <MailFilter
-                filterBy={sent}
-                onSetFilter={onSetFilter}
-            /> */}
-            <MailFilterTxt className="search"
-                filterBy={txt}
+            <SideMenu
+                filterBy={{ folder }}
                 onSetFilter={onSetFilter} />
+
+            <MailFilterTxt className="search"
+                filterBy={{ txt }}
+                onSetFilter={onSetFilter} />
+
             <MailList
                 mails={mails}
                 onRemoveMail={onRemoveMail}
+                onBookmarkMail={onBookmarkMail}
             />
         </section>
     )
