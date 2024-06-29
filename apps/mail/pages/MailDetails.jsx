@@ -23,14 +23,17 @@ export function MailDetails() {
 
     if (!mail) return <div>Loading...</div>
     return (
-        <section className="mail-details">
-            <h2>From: {mail.from}</h2>
+        <section className="mail-details flex column">
+            <nav className="details-navbar flex">
+                <Link to="/mail"><i class="fa-solid fa-arrow-left"></i></Link>
+                <section>
+                    <Link to={`/mail/details/${mail.prevMailId}`}><i class="fa-solid fa-angle-left"></i></Link>
+                    <Link to={`/mail/details/${mail.nextMailId}`}><i class="fa-solid fa-angle-right"></i></Link>
+                </section>
+            </nav>
+            <h2>{mail.subject}</h2>
+            <h4>From: {mail.from}</h4>
             <p>{mail.body}</p>
-            <button ><Link to="/mail">Back</Link></button>
-            <section>
-                <button ><Link to={`/mail/${mail.prevMailId}`}>Prev Mail</Link></button>
-                <button ><Link to={`/mail/${mail.nextMailId}`}>Next Mail</Link></button>
-            </section>
         </section>
     )
 }

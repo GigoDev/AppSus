@@ -1,0 +1,16 @@
+.mail-details{
+    align-items: center;
+    gap: 1rem;
+
+    margin-block-start: 1rem;
+}
+
+.mail-details h2 {
+    font-weight: 100;
+}
+
+.details-navbar{
+    align-items: center;
+    justify-content: space-between;
+    gap: 3rem;
+}

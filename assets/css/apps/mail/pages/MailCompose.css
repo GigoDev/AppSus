@@ -1,28 +1,40 @@
 .compose-mail {
-    position: absolute;
+    position: fixed;
     right: 0;
     bottom: 0;
 
     grid-template-rows: auto auto auto 1fr auto;
 
-    height: 40vw;
+    height: 50vw;
+    min-height: 100px;
+    max-height: 600px;
     width: 500px;
 
+    background-color: #fff;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 
     border-top-right-radius: 20px;
     border-top-left-radius: 20px;
-    
+
     overflow: hidden;
 
     font-family: Roboto;
 }
 
+.compose-header{
+    align-items: center;
+    justify-content: space-between;
+
+    background-color: #a8c7fa;
+}
+
+.compose-header i{
+    margin-inline-end: 1rem;
+}
+
 .compose-mail h2 {
     font-size: 1rem;
     padding: 1rem;
-
-    background-color: #a8c7fa;
 }
 
 .send-btn {
@@ -53,12 +65,12 @@
 }
 
 .to-input,
-.subject-input{
+.subject-input {
     border-bottom: 1px solid lightgrey;
 }
 
 .to-input,
 .subject-input,
-.body-input{
+.body-input {
     outline: none;
 }
