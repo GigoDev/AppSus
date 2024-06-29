@@ -1,4 +1,4 @@
-import { utilService } from "../../../services/util.service.js";
+
 import { noteService } from "../services/note.service.js";
 import { NoteColor } from "./dynamic-inputs/NoteColor.jsx";
 import { NoteVideo } from "./dynamic-inputs/NoteVideo.jsx";
@@ -17,25 +17,21 @@ export function NotePreview({ note, onEditNote, onToggleNotePin, onRemoveNote, o
     const debouncedSaveNote = utilService.debounce(saveUpdatedNote, 500)
 
     function handleChangeTitle(ev) {
-        const newTitle = ev.target.value
-        const updatedNote = {
-            ...note,
-            info: { ...note.info, title: newTitle }
-        }
-        console.log(updatedNote)
-        onEditNote(updatedNote)
-        debouncedSaveNote(updatedNote)
+        const newTitle = ev.target.innerText
+        const updatedTitle = onEditNote(prevEditedNote => ({
+            ...prevEditedNote,
+            info: { ...prevEditedNote.info, title: newTitle }
+        }))
+        saveUpdatedNote(updatedTitle)
     }
 
     function handleChangeInfo(ev) {
-        const newText = ev.target.value
-        const updatedNote = {
-            ...note,
-            info: { ...note.info, txt: newText }
-        }
-        console.log(updatedNote)
-        onEditNote(updatedNote) 
-        debouncedSaveNote(updatedNote) 
+        const newText = ev.target.innerText
+        const updatedInfo = onEditNote(prevEditedNote => ({
+            ...prevEditedNote,
+            info: { txt: newText }
+        }))
+        saveUpdatedNote(updatedInfo)
     }
 
     function handleChangeTodos({ target }, todoIdx) {
@@ -54,9 +50,6 @@ export function NotePreview({ note, onEditNote, onToggleNotePin, onRemoveNote, o
     function saveUpdatedNote(updatedNote) {
         // Save to local storage
         noteService.save(updatedNote)
-
-        // Optionally, log to the console for debugging
-        console.log("Note saved to local storage:", updatedNote);
     }
 
     function getVideoFromUrl(value) {

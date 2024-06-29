@@ -1,14 +1,17 @@
 header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
     height: 8vh;
 
-    background: lightcyan;
-    border-bottom: 2px solid white;
-}
+    padding: 20px;
 
-.app-header {
-    display: flex;
-    justify-content: space-between;
-    padding: 20px 0;
+
+    background-color: #3498db;
+    color: white;
+
+    font-family: Roboto;
 }
 
 nav a {
@@ -22,5 +25,5 @@ nav a:active {
 nav a.active {
     color: darkblue;
     font-weight: bold;
-    text-decoration: overline;
+    /* text-decoration: underline; */
 }

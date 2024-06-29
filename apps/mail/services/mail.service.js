@@ -4,6 +4,10 @@ import { utilService } from '../../../services/util.service.js'
 
 const MAIL_KEY = 'mailDB'
 
+const loggedinUser = {
+    email: 'user@appsus.com',
+    fullname: 'Mahatma Appsus'
+}
 
 _createMails()
 
@@ -17,15 +21,45 @@ export const mailService = {
     getFilterFromSearchParams
 }
 
+
+
 function query(filterBy = {}) {
     return asyncStorageService.query(MAIL_KEY)
         .then(mails => {
-            if (filterBy.txt) {
-                const regExp = new RegExp(filterBy.txt, 'i')
-                mails = mails.filter(mail => regExp.test(mail.from) || regExp.test(mail.subject))
-            }
+            if (filterBy.txt) mails = _filterTxt(mails, filterBy)
+            if (filterBy.folder) mails = _filterFolder(mails, filterBy)
+
             return mails
         })
+}
+
+function _filterTxt(mails, filterBy) {
+    const regExp = new RegExp(filterBy.txt, 'i')
+    return mails.filter(mail => regExp.test(mail.from) || regExp.test(mail.subject))
+}
+
+function _filterFolder(mails, filterBy) {
+    switch (filterBy.folder) {
+        case 'inbox':
+            mails = mails.filter(({ from, remvedAt }) => (from !== loggedinUser.email) && !remvedAt)
+            break;
+        case 'sent':
+            mails = mails.filter(({ from, remvedAt }) => (from === loggedinUser.email) && !remvedAt)
+            break;
+
+        case 'trash':
+            mails = mails.filter(mail => mail.removedAt)
+            break;
+
+        case 'starred':
+            mails = mails.filter(mail => mail.isBookmarked)
+            break;
+
+        default:
+            break;
+    }
+
+    return mails
 }
 
 function get(mailId) {
@@ -52,7 +86,6 @@ function getDefaultFilter() {
 
 
 function getFilterFromSearchParams(searchParams) {
-    // return Object.fromEntries(searchParams)
     const txt = searchParams.get('txt') || ''
     const folder = searchParams.get('folder') || ''
     return {
@@ -119,6 +152,7 @@ function randomTimestamp() {
 
 function getDemoEmails() {
 
+
     const subjects = [
         'Meeting Reminder', 'Project Update', 'Invoice', 'Greetings', 'Follow-up',
         'Invitation', 'Newsletter', 'Happy Birthday', 'Event Details', 'Job Application',
@@ -140,18 +174,36 @@ function getDemoEmails() {
         'We value your feedback.', 'Your report is ready.'
     ]
 
+    const names = [
+        "Alex", "Taylor", "Jordan", "Morgan", "Casey", "Riley", "Avery", "Jamie",
+        "Cameron", "Drew", "Quinn", "Blake", "Harper", "Reese", "Finley", "Rowan",
+        "Peyton", "Dakota", "Hayden", "Skyler", "Emerson", "Logan", "Sawyer", "Parker",
+        "Sage", "Tanner", "Ellis", "Kai", "Arden", "Jules"
+    ]
+
     const emails = []
     for (let i = 0; i < 30; i++) {
+        let from
+        let to
+        if (i <= 20) {
+            from = `${names[i]}@gmail.com`
+            to = loggedinUser.email
+        } else {
+            from = loggedinUser.email
+            to = `${names[i]}@gmail.com`
+        }
+
         const email = {
             id: utilService.makeId(),
             createdAt: Date.now(),
             subject: subjects[Math.floor(Math.random() * subjects.length)],
             body: bodies[Math.floor(Math.random() * bodies.length)],
             isRead: Math.random() < 0.5,
+            isBookmarked: Math.random() < 0.2,
             sentAt: randomTimestamp(),
-            removedAt: Math.random() < 0.5 ? randomTimestamp() : null,
-            from: `user${Math.floor(Math.random() * 100) + 1}@example.com`,
-            to: `user${Math.floor(Math.random() * 100) + 101}@example.com`
+            removedAt: Math.random() < 0.3 ? randomTimestamp() : null,
+            from,
+            to
         }
         emails.push(email)
     }

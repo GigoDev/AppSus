@@ -12,7 +12,7 @@ export function MailCompose() {
     // const { mailId } = useParams()
 
     useEffect(() => {
-        setMailToEdit(prevMailToEdit => ({ ...prevMailToEdit, from: 'me@gmail.com' }))
+        setMailToEdit(prevMailToEdit => ({ ...prevMailToEdit, from: 'user@appsus.com' }))
     }, [])
 
     // function loadMail() {
@@ -22,7 +22,6 @@ export function MailCompose() {
     // }
 
     function onSaveMail(ev) {
-        console.log(mailToEdit)
         ev.preventDefault()
         mailService.save(mailToEdit)
             .then(() => {
@@ -40,10 +39,9 @@ export function MailCompose() {
         setMailToEdit(prevMail => ({ ...prevMail, [field]: value }))
     }
 
-
     const { to, subject, body } = mailToEdit
-    return (
 
+    return (
         <form className="compose-mail grid"
             onSubmit={onSaveMail}>
 
@@ -74,8 +72,6 @@ export function MailCompose() {
 
             <button className="send-btn">Send</button>
         </form >
-
-
     )
 
 }

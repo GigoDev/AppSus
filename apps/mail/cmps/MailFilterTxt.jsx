@@ -31,7 +31,8 @@ export function MailFilterTxt({ filterBy, onSetFilter }) {
                 <i className="fa-solid fa-magnifying-glass"></i>
                 <input value={txt}
                     onChange={handleChange}
-                    name="txt" type="text"
+                    name="txt"
+                    type="text"
                     id="txt"
                     placeholder="Search mail" />
 

@@ -45,6 +45,21 @@ button:hover .ripple {
     opacity: 0;
 }
 
+textarea {
+    background-color: transparent;
+    outline: none;
+    resize: none;
+    border: none;
+    font-size: 1.1em;
+}
+
+input{
+    background-color: transparent;
+    border: none;
+
+    font-size: 1.1em;
+}
+
 input {
     border: none;
     border-radius: 5px;

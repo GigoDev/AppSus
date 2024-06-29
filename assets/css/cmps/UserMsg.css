@@ -7,10 +7,10 @@
     padding: 0.75rem;
     margin: 0.5rem;
     border-radius: 0.5rem;
-    font-size: 1.5em;
     background-color: #f1f1f1;
     box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.1);
-    animation: slideUp 2s ease-in-out;
+    font-size: 1.2em;
+    animation: slideIn 0.3s ease-in-out;
 }
 
 .user-msg.success {
