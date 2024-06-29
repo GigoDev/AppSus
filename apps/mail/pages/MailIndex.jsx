@@ -65,7 +65,7 @@ export function MailIndex() {
                     // TODO:
                     // showErrorMsg(`Having problems removing mail!`)
                 })
-                showSuccessMsg(`email  was moved to trash successfully!`)
+                showSuccessMsg(`Email  was moved to trash successfully!`)
             return
         }
 
@@ -74,7 +74,7 @@ export function MailIndex() {
                 setMails(prevMails =>
                     prevMails.filter(prevMail => prevMail.id !== mail.id)
                 )
-                showSuccessMsg(`email was removed successfully!`)
+                showSuccessMsg(`Email was removed successfully!`)
             })
             .catch(err => {
                 console.log('Problems removing mail:', err)
@@ -96,7 +96,7 @@ export function MailIndex() {
             ))
             .catch(err => console.log('err:', err))
             
-            showSuccessMsg(`email was Bookmarked successfully!`)
+            showSuccessMsg(`Email was Bookmarked successfully!`)
 
     }
 

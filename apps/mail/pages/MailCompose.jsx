@@ -21,7 +21,7 @@ export function MailCompose() {
         mailService.save(mailToEdit)
             .then(() => {
                 navigate('/mail')
-                showSuccessMsg(`email wsd sent successfully!`)
+                showSuccessMsg(`Email was sent successfully!`)
             })
             .catch(err => console.log('err:', err))
     }
