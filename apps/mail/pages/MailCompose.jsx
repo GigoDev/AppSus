@@ -1,4 +1,4 @@
-const { useNavigate, useParams } = ReactRouterDOM
+const { useNavigate, useParams, Link } = ReactRouterDOM
 
 const { useState, useEffect } = React
 import { mailService } from "../services/mail.service.js";
@@ -14,12 +14,6 @@ export function MailCompose() {
     useEffect(() => {
         setMailToEdit(prevMailToEdit => ({ ...prevMailToEdit, from: 'user@appsus.com' }))
     }, [])
-
-    // function loadMail() {
-    //     mailService.get(mailId)
-    //         .then(setMailToEdit)
-    //         .catch(err => console.log('err:', err))
-    // }
 
     function onSaveMail(ev) {
         ev.preventDefault()
@@ -44,8 +38,11 @@ export function MailCompose() {
     return (
         <form className="compose-mail grid"
             onSubmit={onSaveMail}>
-
-            <h2>New Message</h2>
+                
+            <section className="compose-header flex">
+                <h2>New Message</h2>
+                <Link to="/mail"><i class="fa-solid fa-xmark"></i></Link>
+            </section>
             <input onChange={handleChange}
                 className="to-input"
                 value={to}
