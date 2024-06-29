@@ -1,4 +1,7 @@
+import { showSuccessMsg } from "../../../services/event-bus.service.js";
 import { noteService } from "../services/note.service.js";
+
+
 const { useState, useEffect, useRef } = React
 
 
@@ -26,12 +29,13 @@ export function AddNote({ onSaveNote }) {
         switch (cmpType) {
             case 'NoteImg':
             case 'NoteVideo':
-                return { url: '' };
+                return { url: '' }
             case 'NoteTodos':
-                return { todos: [] };
+                return { todos: [] }
             case 'NoteTxt':
+                return { txt: '' }
             default:
-                return { txt: '' };
+                return { txt: '' }
         }
     }
 
@@ -74,6 +78,7 @@ export function AddNote({ onSaveNote }) {
         console.log(note)
         onSaveNote(note)
             .then(() => setNote(noteService.getEmptyNote()))
+            .then(showSuccessMsg('Note added'))
             .catch(err => console.error('Error adding note:', err))
     }
     // console.log(note)
@@ -107,7 +112,6 @@ export function AddNote({ onSaveNote }) {
                     checked={cmpType === 'NoteTxt'}
                     hidden
                     onChange={() => onSetCmpType('NoteTxt')}
-
                 />
 
                 <label htmlFor="NoteImg">

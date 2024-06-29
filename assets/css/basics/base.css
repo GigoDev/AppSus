@@ -60,6 +60,24 @@ input{
     font-size: 1.1em;
 }
 
+input {
+    border: none;
+    border-radius: 5px;
+    background-color: transparent;
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+textarea {
+    border: none;
+    border-radius: 5px;
+    background-color: transparent;
+    font-weight: bold;
+    outline: none; 
+    resize: none; 
+    font-size: 1.1em;
+}
+
 @keyframes ripple-animation {
     to {
         transform: scale(4);

@@ -15,7 +15,7 @@ export function NotePreview({ note, onEditNote, onToggleNotePin, onRemoveNote, o
         updateContent(note)
     }, [note])
 
-    const debouncedSaveNote = utilService.debounce(saveUpdatedNote, 500)
+    const debouncedSaveNote = utilService.debounce(saveUpdatedNote, 500);
 
     function handleChangeTitle(ev) {
         const newTitle = ev.target.value
@@ -33,26 +33,26 @@ export function NotePreview({ note, onEditNote, onToggleNotePin, onRemoveNote, o
             ...note,
             info: { ...note.info, txt: newText }
         }
-        onEditNote(updatedNote)
-        debouncedSaveNote(updatedNote)
+        onEditNote(updatedNote);
+        debouncedSaveNote(updatedNote);
     }
 
     function handleChangeTodos({ target }, todoIdx) {
         const value = target.checked
-        console.log('value: ', value)
-        const updatedTodos = note.info.todos.map((todo, idx) => {
-            return idx === todoIdx ? { ...todo, doneAt: value ? Date.now() : null } : todo
-        })
-        console.log('updatedTodos: ', updatedTodos)
-        const updatedInfo = { ...note.info, todos: updatedTodos }
-        const updatedNote = { ...note, info: updatedInfo }
+        const updatedTodos = note.info.todos.map((todo, idx) => (
+            idx === todoIdx ? { ...todo, doneAt: value ? Date.now() : null } : todo
+        ))
+        const updatedNote = {
+            ...note,
+            info: { ...note.info, todos: updatedTodos }
+        }
         onEditNote(updatedNote)
         debouncedSaveNote(updatedNote)
     }
 
     function saveUpdatedNote(updatedNote) {
+        // Save to local storage
         noteService.save(updatedNote)
-        console.log("Note saved to local storage:", updatedNote)
     }
 
     function getVideoFromUrl(value) {
