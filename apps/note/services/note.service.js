@@ -77,6 +77,30 @@ let gNotes = [
     },
     {
         id: utilService.makeId(),
+        type: 'NoteImg',
+        isPinned: false,
+        info: {
+            url: './assets/img/slash.gif',
+            title: 'Caseoh slash'
+        },
+        style: {
+            backgroundColor: utilService.getRandomNoteColor()
+        }
+    },
+    {
+        id: utilService.makeId(),
+        type: 'NoteImg',
+        isPinned: false,
+        info: {
+            url: './assets/img/bald.jpg',
+            title: 'Caseoh bald'
+        },
+        style: {
+            backgroundColor: utilService.getRandomNoteColor()
+        }
+    },
+    {
+        id: utilService.makeId(),
         createdAt: 1112222,
         type: 'NoteTxt',
         isPinned: true,
@@ -97,7 +121,19 @@ let gNotes = [
             title: 'Caseoh Waffle house'
         },
         style: {
-            backgroundColor: '#00d'
+            backgroundColor: utilService.getRandomNoteColor()
+        }
+    },
+    {
+        id: utilService.makeId(),
+        type: 'NoteImg',
+        isPinned: false,
+        info: {
+            url: './assets/img/rage.gif',
+            title: 'Caseoh rage'
+        },
+        style: {
+            backgroundColor: utilService.getRandomNoteColor()
         }
     },
     {
@@ -152,6 +188,8 @@ let gNotes = [
         }
     }
 ]
+
+
 
 _createNotes()
 

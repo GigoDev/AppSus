@@ -1,6 +1,6 @@
 
 
-export function NoteColor({ selectedColor, handleColorChange, onClose}) {
+export function NoteColor({ selectedColor, handleColorChange, onClose }) {
     const colorOptions = [
         '#F44236',
         '#9C27B0',
@@ -9,11 +9,11 @@ export function NoteColor({ selectedColor, handleColorChange, onClose}) {
         '#4caf50',
         '#101010',]
 
-        return (
-            <div className="color-picker-modal">
-                <div className="color-picker">
-                    {colorOptions.map(color => (
-                        <button key={color}
+    return (
+        <div className="color-picker-modal">
+            <div className="color-picker">
+                {colorOptions.map(color => (
+                    <button key={color}
                         style={{
                             backgroundColor: color,
                             width: '40px',
@@ -23,10 +23,10 @@ export function NoteColor({ selectedColor, handleColorChange, onClose}) {
                             border: color === selectedColor ? '3px solid black' : '1px solid gray',
                             cursor: 'pointer'
                         }}
-                        onClick={() => {handleColorChange(color)}} />
-                    ))}
-                </div>
-                <button onClick={onClose} className="close-btn">Close</button>
+                        onClick={() => { handleColorChange(color) }} />
+                ))}
             </div>
-        )
+            <button onClick={onClose} className="close-btn">Close</button>
+        </div>
+    )
 }

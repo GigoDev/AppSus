@@ -1,7 +1,8 @@
-
+import { utilService } from "../../../services/util.service.js";
 import { noteService } from "../services/note.service.js";
 import { NoteColor } from "./dynamic-inputs/NoteColor.jsx";
 import { NoteVideo } from "./dynamic-inputs/NoteVideo.jsx";
+
 
 const { useState, useEffect, Fragment } = React
 
@@ -13,39 +14,49 @@ export function NotePreview({ note, onEditNote, onToggleNotePin, onRemoveNote, o
         updateContent(note)
     }, [note])
 
+    const debouncedSaveNote = utilService.debounce(saveUpdatedNote, 500)
+
     function handleChangeTitle(ev) {
-        const newTitle = ev.target.innerText
-        const updatedTitle = onEditNote(prevEditedNote => ({
-            ...prevEditedNote,
-            info: { ...prevEditedNote.info, title: newTitle }
-        }))
-        saveUpdatedNote(updatedTitle)
+        const newTitle = ev.target.value
+        const updatedNote = {
+            ...note,
+            info: { ...note.info, title: newTitle }
+        }
+        console.log(updatedNote)
+        onEditNote(updatedNote)
+        debouncedSaveNote(updatedNote)
     }
 
     function handleChangeInfo(ev) {
-        const newText = ev.target.innerText
-        const updatedInfo = onEditNote(prevEditedNote => ({
-            ...prevEditedNote,
-            info: { txt: newText }
-        }))
-        saveUpdatedNote(updatedInfo)
+        const newText = ev.target.value
+        const updatedNote = {
+            ...note,
+            info: { ...note.info, txt: newText }
+        }
+        console.log(updatedNote)
+        onEditNote(updatedNote) 
+        debouncedSaveNote(updatedNote) 
     }
 
     function handleChangeTodos({ target }, todoIdx) {
         const value = target.checked
-        console.log('value: ', value)
-        const updatedTodos = note.info.todos.map((todo, idx) => {
-            return idx === todoIdx ? { ...todo, doneAt: value ? Date.now() : null } : todo
-        })
-        console.log('updatedTodos: ', updatedTodos)
-        const updatedInfo = { ...note.info, todos: updatedTodos }
-        const updatedNote = { ...note, info: updatedInfo }
+        const updatedTodos = note.info.todos.map((todo, idx) => (
+            idx === todoIdx ? { ...todo, doneAt: value ? Date.now() : null } : todo
+        ))
+        const updatedNote = {
+            ...note,
+            info: { ...note.info, todos: updatedTodos }
+        }
         onEditNote(updatedNote)
-        saveUpdatedNote(updatedNote)
+        debouncedSaveNote(updatedNote)
     }
 
     function saveUpdatedNote(updatedNote) {
+        // Save to local storage
         noteService.save(updatedNote)
+
+        // Optionally, log to the console for debugging
+        console.log("Note saved to local storage:", updatedNote);
     }
 
     function getVideoFromUrl(value) {
@@ -58,12 +69,12 @@ export function NotePreview({ note, onEditNote, onToggleNotePin, onRemoveNote, o
         switch (note.type) {
             case 'NoteTxt':
                 updatedContent =
-                    <div
+                    <textarea
                         contentEditable
                         suppressContentEditableWarning
-                        onInput={handleChangeInfo}>
-                        {note.info.txt}
-                    </div>
+                        onInput={handleChangeInfo}
+                        value={note.info.txt}
+                    />
                 break
 
             case 'NoteImg':
@@ -112,14 +123,13 @@ export function NotePreview({ note, onEditNote, onToggleNotePin, onRemoveNote, o
                 <span className={noteCardClass}><i className="fa-solid fa-thumbtack"></i></span>
             </div>
 
-            <h1
+            <textarea
                 className="note-card-title"
                 contentEditable
                 suppressContentEditableWarning
                 onInput={handleChangeTitle}
-            >
-                {note.info.title}
-            </h1>
+                value={note.info.title}
+            />
 
             <blockquote>
                 {content}
