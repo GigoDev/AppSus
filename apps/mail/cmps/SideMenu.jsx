@@ -2,7 +2,6 @@ import { MailFilterFolder } from "./MailFilterFolder.jsx"
 
 const { Link } = ReactRouterDOM
 
-
 export function SideMenu({ filterBy, onSetFilter }) {
 
     return (

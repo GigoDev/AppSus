@@ -20,10 +20,11 @@ export function App() {
             <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/about" element={<About />} />
-                <Route path="/mail" element={<MailIndex />} />
+                <Route path="/mail" element={<MailIndex />} >
+                    <Route path="/mail/compose/" element={<MailCompose />} />
+                </Route>
                 <Route path="/mail/:folder" element={<MailIndex />} />
                 <Route path="/mail/details/:mailId" element={<MailDetails />} />
-                <Route path="/mail/compose/" element={<MailCompose/>} />
                 <Route path="/note" element={<NoteIndex />} />
                 <Route path="*" element={<NotFound />} />
             </Routes>

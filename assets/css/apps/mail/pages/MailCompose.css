@@ -1,5 +1,5 @@
 .compose-mail {
-    position: absolute;
+    position: fixed;
     right: 0;
     bottom: 0;
 
@@ -8,6 +8,7 @@
     height: 40vw;
     width: 500px;
 
+    background-color: #fff;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 
     border-top-right-radius: 20px;

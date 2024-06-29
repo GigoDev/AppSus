@@ -1,0 +1,34 @@
+
+
+.side-menu-btn {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+
+    height: 32px;
+
+    padding-left: 26px;
+    padding-right: 12px;
+
+    border: none;
+    background-color: transparent;
+    font-size: 1rem;
+
+    cursor: pointer;
+}
+
+
+.side-menu-btn:hover:not(.chosen) {
+    background-color: #dde3ea;
+
+    border-top-right-radius: 25px;
+    border-bottom-right-radius: 25px;
+}
+
+.chosen{
+    background-color: #a8c7fa;
+
+    border-top-right-radius: 25px;
+    border-bottom-right-radius: 25px;
+
+}

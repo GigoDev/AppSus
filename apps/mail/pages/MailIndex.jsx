@@ -1,4 +1,4 @@
-const { Link, useSearchParams } = ReactRouterDOM
+const { Link, useSearchParams,Outlet } = ReactRouterDOM
 import { MailFilterTxt } from "../cmps/MailFilterTxt.jsx"
 import { MailList } from "../cmps/MailList.jsx"
 import { SideMenu } from "../cmps/SideMenu.jsx"
@@ -22,7 +22,6 @@ export function MailIndex() {
     function loadMails() {
         mailService.query(filterBy)
             .then(mails => {
-                console.log('hi')
                 setMails(mails)
             })
             .catch(err => {
@@ -52,12 +51,12 @@ export function MailIndex() {
 
         mailService.get(mailId)
             .then(mail => {
-                mail.isBookmarked = true
+                mail.isBookmarked = !mail.isBookmarked
                 return mailService.save(mail)
             })
             .then((mail) => setMails(prevMails=>
-                                    prevMails.map(prevMail=> 
-                                        prevMail.id===mailId? mail: prevMail )
+                                        prevMails.map(prevMail=> 
+                                            prevMail.id===mailId? mail: prevMail )
             ))
             .catch(err => console.log('err:', err))
     }
@@ -70,7 +69,7 @@ export function MailIndex() {
     const { folder, txt } = filterBy
     return (
         <section className="mail-container grid">
-            <SideMenu
+            <SideMenu className="side-menu"
                 filterBy={{ folder }}
                 onSetFilter={onSetFilter} />
 
@@ -83,7 +82,9 @@ export function MailIndex() {
                 onRemoveMail={onRemoveMail}
                 onBookmarkMail={onBookmarkMail}
             />
+            <Outlet/>
         </section>
+        
     )
 }
 
