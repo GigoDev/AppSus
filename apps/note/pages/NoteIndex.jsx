@@ -1,7 +1,5 @@
 
 import { showErrorMsg, showSuccessMsg } from '../../../services/event-bus.service.js'
-
-import { showSuccessMsg } from '../../../services/event-bus.service.js'
 import { AddNote } from '../cmps/AddNote.jsx'
 import { NoteHeader } from '../cmps/NoteHeader.jsx'
 import { NoteList } from '../cmps/NoteList.jsx'
@@ -28,9 +26,8 @@ export function NoteIndex() {
     // }
 
     function onEditNote(updatedNote) {
-
+      
         setNotes(prevNotes => prevNotes.map(note => {
-
             return note.id === updatedNote.id ? updatedNote : note
         }))
     }
@@ -57,8 +54,12 @@ export function NoteIndex() {
 
     function onToggleNotePin(noteId) {
         // console.log(noteId)
+        const note = notes.find(note => note.id === noteId)
+        if (!note) return
+        const isCurrentlyPinned = note.isPinned
         noteService.toggleNotePin(noteId)
             .then(loadNotes)
+            .then(showSuccessMsg(!isCurrentlyPinned  ? 'Note pinned' : 'Note unpinned'))
     }
 
     function onChangeNoteColor(noteId, newColor) {

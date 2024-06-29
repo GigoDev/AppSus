@@ -1,4 +1,5 @@
 
+import { utilService } from "../../../services/util.service.js";
 import { noteService } from "../services/note.service.js";
 import { NoteColor } from "./dynamic-inputs/NoteColor.jsx";
 import { NoteVideo } from "./dynamic-inputs/NoteVideo.jsx";
@@ -14,24 +15,26 @@ export function NotePreview({ note, onEditNote, onToggleNotePin, onRemoveNote, o
         updateContent(note)
     }, [note])
 
-    const debouncedSaveNote = utilService.debounce(saveUpdatedNote, 500)
+    const debouncedSaveNote = utilService.debounce(saveUpdatedNote, 500);
 
     function handleChangeTitle(ev) {
-        const newTitle = ev.target.innerText
-        const updatedTitle = onEditNote(prevEditedNote => ({
-            ...prevEditedNote,
-            info: { ...prevEditedNote.info, title: newTitle }
-        }))
-        saveUpdatedNote(updatedTitle)
+        const newTitle = ev.target.value
+        const updatedNote = {
+            ...note,
+            info: { ...note.info, title: newTitle }
+        }
+        onEditNote(updatedNote)
+        debouncedSaveNote(updatedNote)
     }
 
     function handleChangeInfo(ev) {
-        const newText = ev.target.innerText
-        const updatedInfo = onEditNote(prevEditedNote => ({
-            ...prevEditedNote,
-            info: { txt: newText }
-        }))
-        saveUpdatedNote(updatedInfo)
+        const newText = ev.target.value
+        const updatedNote = {
+            ...note,
+            info: { ...note.info, txt: newText }
+        }
+        onEditNote(updatedNote);
+        debouncedSaveNote(updatedNote);
     }
 
     function handleChangeTodos({ target }, todoIdx) {
