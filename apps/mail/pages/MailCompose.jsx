@@ -1,6 +1,7 @@
 const { useNavigate, useParams, Link } = ReactRouterDOM
 
 const { useState, useEffect } = React
+import { showSuccessMsg } from "../../../services/event-bus.service.js";
 import { mailService } from "../services/mail.service.js";
 
 
@@ -20,8 +21,7 @@ export function MailCompose() {
         mailService.save(mailToEdit)
             .then(() => {
                 navigate('/mail')
-                // Todo:
-                // showSuccessMsg(`Mail saved successfully!`)
+                showSuccessMsg(`email wsd sent successfully!`)
             })
             .catch(err => console.log('err:', err))
     }

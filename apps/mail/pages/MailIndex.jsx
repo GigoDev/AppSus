@@ -1,4 +1,5 @@
 const { Link, useSearchParams, Outlet } = ReactRouterDOM
+import { showSuccessMsg } from "../../../services/event-bus.service.js"
 import { MailFilterTxt } from "../cmps/MailFilterTxt.jsx"
 import { MailList } from "../cmps/MailList.jsx"
 import { SideMenu } from "../cmps/SideMenu.jsx"
@@ -64,10 +65,7 @@ export function MailIndex() {
                     // TODO:
                     // showErrorMsg(`Having problems removing mail!`)
                 })
-    
-            // setMails(prevMails =>
-            //     prevMails.map(prevMail => prevMail.id === mail.id ? mail : prevMail)
-            // )
+                showSuccessMsg(`email  was moved to trash successfully!`)
             return
         }
 
@@ -76,13 +74,11 @@ export function MailIndex() {
                 setMails(prevMails =>
                     prevMails.filter(prevMail => prevMail.id !== mail.id)
                 )
-                // TODO:
-                // showSuccessMsg(`Car (${mailId}) removed successfully!`)
+                showSuccessMsg(`email was removed successfully!`)
             })
             .catch(err => {
                 console.log('Problems removing mail:', err)
-                // TODO:
-                // showErrorMsg(`Having problems removing mail!`)
+                showErrorMsg(`Having problems removing mail!`)
             })
     }
 
@@ -99,6 +95,9 @@ export function MailIndex() {
                     prevMail.id === mailId ? mail : prevMail)
             ))
             .catch(err => console.log('err:', err))
+            
+            showSuccessMsg(`email was Bookmarked successfully!`)
+
     }
 
     function onSetFilter(filterBy) {
