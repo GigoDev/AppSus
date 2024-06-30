@@ -42,7 +42,7 @@ function _filterFolder(mails, filterBy) {
             mails = mails.filter(({ from,  removedAt }) => (from !== loggedinUser.email) && !removedAt)
             break;
         case 'sent':
-            mails = mails.filter(({ sentAt, removedAt }) => (sentAt) && !removedAt)
+            mails = mails.filter(({ sentAt, removedAt }) => (from === loggedinUser.email) && !removedAt)
             break;
 
         case 'trash':
@@ -180,15 +180,12 @@ function getDemoEmails() {
     for (let i = 0; i < 30; i++) {
         let from
         let to
-        let sentAt
         if (i <= 20) {
             from = `${names[i]}@gmail.com`
             to = loggedinUser.email
-            sentAt = null
         } else {
             from = loggedinUser.email
             to = `${names[i]}@gmail.com`
-            sentAt = randomTimestamp()
         }
 
         const email = {
@@ -198,7 +195,7 @@ function getDemoEmails() {
             body: bodies[Math.floor(Math.random() * bodies.length)],
             isRead: Math.random() < 0.5,
             isBookmarked: Math.random() < 0.2,
-            sentAt,
+            sentAt : randomTimestamp(),
             removedAt: Math.random() < 0.3 ? randomTimestamp(): null,
             from,
             to

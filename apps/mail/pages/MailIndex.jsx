@@ -38,7 +38,7 @@ export function MailIndex() {
             .then(mails => {
                 foldersCountMap.current = mails.reduce((acc, mail) => {
                     if (mail.from !== 'user@appsus.com' && !mail.removedAt) acc.inbox = (acc.inbox || 0) + 1
-                    if (mail.sentAt && !mail.removedAt) acc.sent = (acc.sent || 0) + 1
+                    if (mail.from === 'user@appsus.com' && !mail.removedAt) acc.sent = (acc.sent || 0) + 1
                     if (mail.isBookmarked && !mail.removedAt) acc.starred = (acc.starred || 0) + 1
                     if (mail.removedAt) acc.trash = (acc.trash || 0) + 1
 
